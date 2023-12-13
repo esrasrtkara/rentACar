@@ -1,5 +1,6 @@
 package com.rentACar.rentACar.services.concretes;
 
+import com.rentACar.rentACar.core.utilities.mappers.ModelMapperService;
 import com.rentACar.rentACar.entities.Car;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
@@ -14,65 +15,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class CarManager implements CarService {
     private CarRepository carRepository;
+    private ModelMapperService modelMapperService;
 
     @Override
     public List<GetCarListResponse> getAll() {
         List<Car> cars = carRepository.findAll();
-        List<GetCarListResponse> responses = new ArrayList<>();
-
-        for (Car car : cars){
-            GetCarListResponse response = new GetCarListResponse();
-            response.setYear(car.getYear());
-            response.setKilometer(car.getKilometer());
-            response.setPlate(car.getPlate());
-            response.setDailyPrice(car.getDailyPrice());
-            responses.add(response);
-        }
+        List<GetCarListResponse> responses = cars.stream().map(car -> modelMapperService.forResponse()
+                .map(car,GetCarListResponse.class)).collect(Collectors.toList());
         return responses;
     }
 
     @Override
     public GetCarResponse getById(int id) {
         Car car = carRepository.findById(id).orElseThrow();
-
-        GetCarResponse response = new GetCarResponse();
-        response.setId(car.getId());
-        response.setYear(car.getYear());
-        response.setPlate(car.getPlate());
-        response.setKilometer(car.getKilometer());
-        response.setDailyPrice(car.getDailyPrice());
+        GetCarResponse response = this.modelMapperService.forResponse().map(car,GetCarResponse.class) ;
         return response;
     }
 
     @Override
     public void add(AddCarRequest request) {
-        Car car = new Car();
-        car.setPlate(request.getPlate());
-        car.setKilometer(request.getKilometer());
-        car.setYear(request.getYear());
-        car.setDailyPrice(request.getDailyPrice());
-        car.setModel(request.getModel());
-        car.setColor(request.getColor());
+        Car car = this.modelMapperService.forRequest().map(request,Car.class);
         carRepository.save(car);
-
     }
 
     @Override
     public void update(UpdateCarRequest request) {
-        Car car = new Car();
-        car.setId(request.getId());
-        carRepository.findById(car.getId()).orElseThrow();
-        car.setPlate(request.getPlate());
-        car.setKilometer(request.getKilometer());
-        car.setYear(request.getYear());
-        car.setDailyPrice(request.getDailyPrice());
-        car.setModel(request.getModel());
-        car.setColor(request.getColor());
+        Car car = this.modelMapperService.forRequest().map(request,Car.class);
         carRepository.save(car);
     }
 
