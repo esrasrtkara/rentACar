@@ -7,8 +7,5 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class CarManager implements CarService {
 }
