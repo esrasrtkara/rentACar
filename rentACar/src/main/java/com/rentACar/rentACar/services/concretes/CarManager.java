@@ -51,16 +51,35 @@ public class CarManager implements CarService {
 
     @Override
     public void add(AddCarRequest request) {
+        Car car = new Car();
+        car.setPlate(request.getPlate());
+        car.setKilometer(request.getKilometer());
+        car.setYear(request.getYear());
+        car.setDailyPrice(request.getDailyPrice());
+        car.setModel(request.getModel());
+        car.setColor(request.getColor());
+        carRepository.save(car);
 
     }
 
     @Override
     public void update(UpdateCarRequest request) {
-
+        Car car = new Car();
+        car.setId(request.getId());
+        carRepository.findById(car.getId()).orElseThrow();
+        car.setPlate(request.getPlate());
+        car.setKilometer(request.getKilometer());
+        car.setYear(request.getYear());
+        car.setDailyPrice(request.getDailyPrice());
+        car.setModel(request.getModel());
+        car.setColor(request.getColor());
+        carRepository.save(car);
     }
 
     @Override
     public void delete(int id) {
+        Car carToDelete = carRepository.findById(id).orElseThrow();
+        carRepository.delete(carToDelete);
 
     }
 }
