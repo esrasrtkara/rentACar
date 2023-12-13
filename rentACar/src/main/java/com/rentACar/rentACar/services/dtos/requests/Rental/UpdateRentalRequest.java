@@ -5,9 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> main
 public class UpdateRentalRequest {
 }

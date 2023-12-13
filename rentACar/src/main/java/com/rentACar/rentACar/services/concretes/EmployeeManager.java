@@ -7,9 +7,5 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 public class EmployeeManager implements EmployeeService {
 }
