@@ -17,7 +17,7 @@
 
 ## ` 📊 ER Diagram with PostgreSQL`
 
-<p align="center"><img src="rentACar/src/main/Rent-A-Car-ERD.png" alt="erd"></p>
+<p align="center"><img src="rentACar/src/main/images/Rent-A-Car-ERD.png" alt="erd"></p>
 
 ---
 
