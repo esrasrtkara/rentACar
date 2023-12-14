@@ -5,6 +5,7 @@ import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +28,11 @@ public class CarsController {
     }
 
     @PostMapping
-    public void add(@RequestBody AddCarRequest request){
+    public void add(@RequestBody @Valid AddCarRequest request){
         carService.add(request);
     }
     @PutMapping
-    public void update(@RequestBody UpdateCarRequest request){
+    public void update(@RequestBody @Valid UpdateCarRequest request){
         carService.update(request);
     }
     @DeleteMapping("{id}")

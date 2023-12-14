@@ -4,6 +4,8 @@ import com.rentACar.rentACar.core.utilities.mappers.ModelMapperService;
 import com.rentACar.rentACar.entities.Car;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
+import com.rentACar.rentACar.services.abstracts.ColorService;
+import com.rentACar.rentACar.services.abstracts.ModelService;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class CarManager implements CarService {
     private CarRepository carRepository;
     private ModelMapperService modelMapperService;
+    private ModelService modelService;
+    private ColorService colorService;
 
     @Override
     public List<GetCarListResponse> getAll() {
@@ -37,8 +41,28 @@ public class CarManager implements CarService {
 
     @Override
     public void add(AddCarRequest request) {
-        Car car = this.modelMapperService.forRequest().map(request,Car.class);
-        carRepository.save(car);
+        request.setPlate(request.getPlate().replaceAll("[^a-zA-Z0-9]", ""));
+
+        if(!request.getPlate().matches("^(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\\d{4,5})|([A-Z]{2})(\\d{3,4})|([A-Z]{3})(\\d{2,3}))$"))
+        {
+            throw new RuntimeException("Plate number should match Turkish plate format");
+        } else if (carRepository.existsByPlate(request.getPlate())) {
+            throw new RuntimeException("Aynı plaka kaydedilemez");
+        } else if (request.getModel().getId() < 0) {
+            throw  new RuntimeException("Model id sıfırdan küçük olamaz.");
+        } else if (request.getColor().getId() < 0) {
+            throw  new RuntimeException("Color id sıfırdan küçük olamaz.");
+        } else if (!modelService.controlModelId(request.getModel().getId())) {
+            throw new RuntimeException("Model id db bulunamadı");
+        }
+        else if (!colorService.controlColorId(request.getColor().getId())) {
+            throw new RuntimeException("Color id db bulunamadı");
+        }
+        else {
+            Car car = this.modelMapperService.forRequest().map(request,Car.class);
+            carRepository.save(car);
+        }
+
     }
 
     @Override
