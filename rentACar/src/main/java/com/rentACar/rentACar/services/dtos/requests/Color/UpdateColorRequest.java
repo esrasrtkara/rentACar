@@ -1,10 +1,10 @@
 package com.rentACar.rentACar.services.dtos.requests.Color;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-
+@Data
 
 public class UpdateColorRequest {
+    private int id;
+    private String name;
 }
