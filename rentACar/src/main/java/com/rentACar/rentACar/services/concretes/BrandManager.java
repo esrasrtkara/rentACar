@@ -9,11 +9,10 @@ import com.rentACar.rentACar.services.dtos.requests.Brand.UpdateBrandRequest;
 import com.rentACar.rentACar.services.dtos.responses.Brand.GetBrandListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Brand.GetBrandResponse;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,5 +55,15 @@ public class BrandManager implements BrandService {
     public void delete(int id) {
         Brand brandToDelete = brandRepository.findById(id).orElseThrow();
         brandRepository.delete(brandToDelete);
+    }
+
+    @Override
+    public boolean controlBrandId(int id) {
+        try {
+            brandRepository.findById(id).orElseThrow();
+            return true;
+        }catch(NoSuchElementException e){
+            return false;
+        }
     }
 }
