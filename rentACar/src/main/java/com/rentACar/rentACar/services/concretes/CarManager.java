@@ -67,14 +67,32 @@ public class CarManager implements CarService {
 
     @Override
     public void update(UpdateCarRequest request) {
-        Car car = this.modelMapperService.forRequest().map(request,Car.class);
-        carRepository.save(car);
+        request.setPlate(request.getPlate().replaceAll("[^a-zA-Z0-9]", ""));
+
+        if(!request.getPlate().matches("^(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\\d{4,5})|([A-Z]{2})(\\d{3,4})|([A-Z]{3})(\\d{2,3}))$"))
+        {
+            throw new RuntimeException("Plate number should match Turkish plate format");
+        } else if (carRepository.existsByPlate(request.getPlate())) {
+            throw new RuntimeException("Aynı plaka kaydedilemez");
+        } else if (request.getModel().getId() < 0) {
+            throw  new RuntimeException("Model id sıfırdan küçük olamaz.");
+        } else if (request.getColor().getId() < 0) {
+            throw  new RuntimeException("Color id sıfırdan küçük olamaz.");
+        } else if (!modelService.controlModelId(request.getModel().getId())) {
+            throw new RuntimeException("Model id db bulunamadı");
+        }
+        else if (!colorService.controlColorId(request.getColor().getId())) {
+            throw new RuntimeException("Color id db bulunamadı");
+        }
+        else {
+            Car car = this.modelMapperService.forRequest().map(request,Car.class);
+            carRepository.save(car);
+        }
     }
 
     @Override
     public void delete(int id) {
         Car carToDelete = carRepository.findById(id).orElseThrow();
         carRepository.delete(carToDelete);
-
     }
 }
