@@ -45,6 +45,9 @@ public class ColorManager implements ColorService {
 
     @Override
     public void add(AddColorRequest request) {
+        if (colorRepository.existsByName(request.getName())){
+            throw new RuntimeException("Aynı isimli renk eklenemez!");
+        }
         Color color = modelMapperService.forRequest().map(request, Color.class);
         colorRepository.save(color);
     }
