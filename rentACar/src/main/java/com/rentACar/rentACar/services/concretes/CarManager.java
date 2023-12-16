@@ -106,4 +106,16 @@ public class CarManager implements CarService {
             return false;
         }
     }
+
+    @Override
+    public int carKilometer(int id) {
+       Car car = carRepository.findById(id).orElseThrow();
+        return car.getKilometer();
+    }
+
+    @Override
+    public double carDailyPrice(int id) {
+        Car car = carRepository.findById(id).orElseThrow();
+        return car.getDailyPrice();
+    }
 }
