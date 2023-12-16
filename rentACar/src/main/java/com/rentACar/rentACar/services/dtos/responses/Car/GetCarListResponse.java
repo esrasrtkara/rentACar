@@ -1,7 +1,5 @@
 package com.rentACar.rentACar.services.dtos.responses.Car;
 
-import com.rentACar.rentACar.entities.Color;
-import com.rentACar.rentACar.entities.Model;
 import com.rentACar.rentACar.services.dtos.responses.Color.GetColorListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;
 import lombok.AllArgsConstructor;

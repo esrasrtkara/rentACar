@@ -1,17 +1,10 @@
 package com.rentACar.rentACar.services.dtos.requests.Car;
 
-import com.rentACar.rentACar.entities.Color;
-import com.rentACar.rentACar.entities.Model;
 import com.rentACar.rentACar.services.dtos.requests.Color.AddColorIdRequest;
 import com.rentACar.rentACar.services.dtos.requests.Model.AddModelIdRequest;
-import com.rentACar.rentACar.services.dtos.responses.Color.GetColorResponse;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 @Data
 public class AddCarRequest {

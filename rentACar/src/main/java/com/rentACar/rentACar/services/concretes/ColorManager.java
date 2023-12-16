@@ -73,6 +73,5 @@ public class ColorManager implements ColorService {
         catch (NoSuchElementException e){
             return false;
         }
-
     }
 }

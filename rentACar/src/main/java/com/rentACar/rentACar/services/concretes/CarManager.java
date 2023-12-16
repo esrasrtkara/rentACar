@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +36,7 @@ public class CarManager implements CarService {
     @Override
     public GetCarResponse getById(int id) {
         Car car = carRepository.findById(id).orElseThrow();
-        GetCarResponse response = this.modelMapperService.forResponse().map(car,GetCarResponse.class) ;
+        GetCarResponse response = this.modelMapperService.forResponse().map(car,GetCarResponse.class);
         return response;
     }
 
@@ -94,5 +95,15 @@ public class CarManager implements CarService {
     public void delete(int id) {
         Car carToDelete = carRepository.findById(id).orElseThrow();
         carRepository.delete(carToDelete);
+    }
+
+    @Override
+    public boolean controlCarId(int id) {
+        try {
+            Car car = carRepository.findById(id).orElseThrow();
+            return true;
+        }catch (NoSuchElementException e){
+            return false;
+        }
     }
 }

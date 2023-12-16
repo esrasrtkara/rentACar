@@ -13,4 +13,5 @@ public interface CarService {
     void add(AddCarRequest request);
     void update(UpdateCarRequest request);
     void delete(int id);
+    boolean controlCarId(int id);
 }
