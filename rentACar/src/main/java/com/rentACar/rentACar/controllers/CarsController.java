@@ -31,13 +31,14 @@ public class CarsController {
     public void add(@RequestBody @Valid AddCarRequest request){
         carService.add(request);
     }
+
     @PutMapping
     public void update(@RequestBody @Valid UpdateCarRequest request){
         carService.update(request);
     }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
         carService.delete(id);
     }
-
 }
