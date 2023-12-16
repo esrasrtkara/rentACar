@@ -14,4 +14,6 @@ public interface CarService {
     void update(UpdateCarRequest request);
     void delete(int id);
     boolean controlCarId(int id);
+    int carKilometer(int id);
+    double carDailyPrice(int id);
 }

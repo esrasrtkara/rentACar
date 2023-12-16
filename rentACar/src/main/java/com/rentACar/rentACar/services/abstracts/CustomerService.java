@@ -1,4 +1,5 @@
 package com.rentACar.rentACar.services.abstracts;
 
 public interface CustomerService {
+    boolean controlCustomerUserId(int id);
 }
