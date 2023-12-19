@@ -46,18 +46,18 @@ public class RentalManager implements RentalService {
         if (request.getEndDate().isBefore(request.getStartDate())){
             throw new RuntimeException("The end date cannot be later than the start date.");
         } else if (!carService.controlCarId(request.getCar().getId())) {
-            throw new RuntimeException("Car id db bulunamadı");
+            throw new RuntimeException("Car ID not found in database");
         } else if (!customerService.controlCustomerUserId(request.getCustomer().getId())) {
-            throw new RuntimeException("Customer için user id db bulunamadı");
+            throw new RuntimeException("Customer's User ID not found in database");
         } else if (!employeeService.controlEmployeeUserId(request.getEmployee().getId())) {
-            throw new RuntimeException("Employee için user id db bulunamadı");
+            throw new RuntimeException("Employee's User ID not found in database");
         } else if (ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate()) > 25) {
             throw new RuntimeException("A vehicle can be rented for a maximum of 25 days.");
         } else {
             Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
             rental.setStartKilometer(carService.carKilometer(request.getCar().getId()));
             double dailyPrice = carService.carDailyPrice(request.getCar().getId());
-            double price = dailyPrice * totalDay.doubleValue();
+            double price = dailyPrice * (double) totalDay;
             double discount = request.getDiscount();
             double discountPrice = price * discount;
             double totalPrice = price - discountPrice;

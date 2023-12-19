@@ -44,9 +44,9 @@ public class ModelManager implements ModelService {
     @Override
     public void add(AddModelRequest request) {
         if (modelRepository.existsByName(request.getName())){
-            throw new RuntimeException("Aynı isimli model eklenemez!");
+            throw new RuntimeException("Model with the same name cannot be added!");
         } else if (!brandService.controlBrandId(request.getBrand().getId())) {
-            throw new RuntimeException("Brand ID bulunamadı!");
+            throw new RuntimeException("Brand ID not found");
         }
         Model model = this.modelMapperService.forRequest().map(request, Model.class);
         modelRepository.save(model);

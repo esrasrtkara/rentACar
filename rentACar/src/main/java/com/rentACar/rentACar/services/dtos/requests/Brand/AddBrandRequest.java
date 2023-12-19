@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 public class AddBrandRequest {
-    @Size(min = 2 , message = "Marka adı 2 karakterden az olamaz!")
+    @Size(min = 2 , message = "Brand name cannot be less than 2 characters")
     private String name;
 }

@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 
 public class AddColorRequest {
-    @Size(min = 2 , message = "Renk adı 2 karakterden küçük olamaz!")
+    @Size(min = 2 , message = "Color name cannot be less than 2 characters")
     private String name;
 }

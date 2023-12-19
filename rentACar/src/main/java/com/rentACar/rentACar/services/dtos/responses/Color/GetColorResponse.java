@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
  @Data
-
 public class GetColorResponse {
     private int id;
     private String name;
