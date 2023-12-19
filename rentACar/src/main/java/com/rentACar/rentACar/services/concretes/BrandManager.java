@@ -39,7 +39,7 @@ public class BrandManager implements BrandService {
     @Override
     public void add(AddBrandRequest request) {
         if (brandRepository.existsByName(request.getName())){
-            throw new RuntimeException("Aynı isimli marka eklenemez!");
+            throw new RuntimeException("The same name brand cannot be added!");
         }
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
         brandRepository.save(brand);

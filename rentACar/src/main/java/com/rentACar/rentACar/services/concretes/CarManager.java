@@ -48,16 +48,16 @@ public class CarManager implements CarService {
         {
             throw new RuntimeException("Plate number should match Turkish plate format");
         } else if (carRepository.existsByPlate(request.getPlate())) {
-            throw new RuntimeException("Aynı plaka kaydedilemez");
+            throw new RuntimeException("The same license plate cannot be registered");
         } else if (request.getModel().getId() < 0) {
-            throw  new RuntimeException("Model id sıfırdan küçük olamaz.");
+            throw  new RuntimeException("Model ID cannot be less than zero.");
         } else if (request.getColor().getId() < 0) {
-            throw  new RuntimeException("Color id sıfırdan küçük olamaz.");
+            throw  new RuntimeException("Color ID cannot be less than zero.");
         } else if (!modelService.controlModelId(request.getModel().getId())) {
-            throw new RuntimeException("Model id db bulunamadı");
+            throw new RuntimeException("Model ID not found in database");
         }
         else if (!colorService.controlColorId(request.getColor().getId())) {
-            throw new RuntimeException("Color id db bulunamadı");
+            throw new RuntimeException("Color ID not found in database");
         }
         else {
             Car car = this.modelMapperService.forRequest().map(request,Car.class);
@@ -74,16 +74,16 @@ public class CarManager implements CarService {
         {
             throw new RuntimeException("Plate number should match Turkish plate format");
         } else if (carRepository.existsByPlate(request.getPlate())) {
-            throw new RuntimeException("Aynı plaka kaydedilemez");
+            throw new RuntimeException("The same license plate cannot be registered");
         } else if (request.getModel().getId() < 0) {
-            throw  new RuntimeException("Model id sıfırdan küçük olamaz.");
+            throw  new RuntimeException("Model ID cannot be less than zero.");
         } else if (request.getColor().getId() < 0) {
-            throw  new RuntimeException("Color id sıfırdan küçük olamaz.");
+            throw  new RuntimeException("Color ID cannot be less than zero.");
         } else if (!modelService.controlModelId(request.getModel().getId())) {
-            throw new RuntimeException("Model id db bulunamadı");
+            throw new RuntimeException("Model ID not found in database");
         }
         else if (!colorService.controlColorId(request.getColor().getId())) {
-            throw new RuntimeException("Color id db bulunamadı");
+            throw new RuntimeException("Color ID not found in database");
         }
         else {
             Car car = this.modelMapperService.forRequest().map(request,Car.class);
