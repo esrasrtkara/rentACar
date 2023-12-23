@@ -18,18 +18,25 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "start_date")
     private LocalDate startDate;
+
     @Column(name = "end_date")
     private LocalDate endDate;
+
     @Column(name = "return_date")
     private LocalDate returnDate;
+
     @Column(name = "start_kilometer")
     private int startKilometer;
+
     @Column(name = "end_kilometer")
     private int endKilometer;
+
     @Column(name = "total_price")
     private double totalPrice;
+
     @Column(name = "discount")
     private double discount;
 
@@ -47,5 +54,4 @@ public class Rental {
     @JsonIgnore
     @JoinColumn(name = "employee_id")
     private Employee employee;
-
 }

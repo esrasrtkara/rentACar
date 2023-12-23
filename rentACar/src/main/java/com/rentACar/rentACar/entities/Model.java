@@ -18,18 +18,16 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "name")
     private String name;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
 
     @OneToMany(mappedBy = "model")
     @JsonIgnore
     private List<Car> cars;
 
-
-
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 }

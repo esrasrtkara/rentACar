@@ -20,15 +20,18 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "kilometer")
     private int kilometer;
+
     @Column(name = "year")
     private int year;
+
     @Column(name = "plate")
     private String plate;
+
     @Column(name = "daily_price")
     private double dailyPrice;
-
 
     @ManyToOne
     @JsonIgnore

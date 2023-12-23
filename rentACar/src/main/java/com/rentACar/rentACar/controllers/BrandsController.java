@@ -1,7 +1,5 @@
 package com.rentACar.rentACar.controllers;
 
-import com.rentACar.rentACar.entities.Brand;
-
 import com.rentACar.rentACar.services.abstracts.BrandService;
 import com.rentACar.rentACar.services.dtos.requests.Brand.AddBrandRequest;
 import com.rentACar.rentACar.services.dtos.requests.Brand.UpdateBrandRequest;
@@ -9,16 +7,9 @@ import com.rentACar.rentACar.services.dtos.responses.Brand.GetBrandListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Brand.GetBrandResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.rentACar.rentACar.repositories.BrandRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("api/brands")
