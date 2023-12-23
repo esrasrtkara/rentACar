@@ -18,8 +18,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private  int id;
+
     @Column(name = "salary")
-    private  double salary;
+    private double salary;
 
     @OneToMany(mappedBy = "employee")
     @JsonIgnore

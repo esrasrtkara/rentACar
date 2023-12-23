@@ -18,12 +18,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "gsm")
     private String gsm;
+
     @Column(name = "email")
     private String email;
 
@@ -34,5 +38,4 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Employee> employees;
-
 }
