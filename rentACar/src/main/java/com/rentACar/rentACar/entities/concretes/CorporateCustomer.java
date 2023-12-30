@@ -1,25 +1,21 @@
 package com.rentACar.rentACar.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rentACar.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
-@Table(name = "customers")
+@Table(name = "corporate_customers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer extends BaseEntity {
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-
+public class CorporateCustomer extends BaseEntity {
+    @Column(name = "company_name")
+    private String companyName;
+    @Column(name = "tax_no")
+    private String taxNo;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

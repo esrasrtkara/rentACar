@@ -1,6 +1,7 @@
 package com.rentACar.rentACar.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rentACar.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,29 +14,17 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class User extends BaseEntity {
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "surname")
-    private String surname;
-
-    @Column(name = "gsm")
-    private String gsm;
 
     @Column(name = "email")
     private String email;
+    @Column(name = "password")
+    private String password;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
     private List<Customer> customers;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Employee> employees;
+    private List<CorporateCustomer> corporateCustomers;
 }
