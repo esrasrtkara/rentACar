@@ -1,19 +1,15 @@
 package com.rentACar.rentACar.services.concretes;
 
-import com.rentACar.rentACar.core.utilities.mappers.ModelMapperService;
+import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
 import com.rentACar.rentACar.entities.Color;
-import com.rentACar.rentACar.entities.Model;
 import com.rentACar.rentACar.repositories.ColorRepository;
 import com.rentACar.rentACar.services.abstracts.ColorService;
-import com.rentACar.rentACar.services.abstracts.ModelService;
 import com.rentACar.rentACar.services.dtos.requests.Color.AddColorRequest;
 import com.rentACar.rentACar.services.dtos.requests.Color.UpdateColorRequest;
-import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Color.GetColorListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Color.GetColorResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

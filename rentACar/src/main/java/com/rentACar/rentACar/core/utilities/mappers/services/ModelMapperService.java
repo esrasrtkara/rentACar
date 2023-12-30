@@ -1,4 +1,4 @@
-package com.rentACar.rentACar.core.utilities.mappers;
+package com.rentACar.rentACar.core.utilities.mappers.services;
 
 import org.modelmapper.ModelMapper;
 
