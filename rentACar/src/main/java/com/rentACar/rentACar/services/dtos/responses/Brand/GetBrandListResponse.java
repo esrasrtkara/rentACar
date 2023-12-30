@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class GetBrandListResponse {
     private String name;
+    private String logoPath;
 }

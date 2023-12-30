@@ -10,6 +10,7 @@ import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
+import com.rentACar.rentACar.services.rules.CarBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,10 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CarManager implements CarService {
-    private CarRepository carRepository;
-    private ModelMapperService modelMapperService;
-    private ModelService modelService;
-    private ColorService colorService;
+    private final CarRepository carRepository;
+    private final ModelMapperService modelMapperService;
+    private final CarBusinessRules carBusinessRules;
+
 
     @Override
     public List<GetCarListResponse> getAll() {
@@ -43,52 +44,30 @@ public class CarManager implements CarService {
     @Override
     public void add(AddCarRequest request) {
         request.setPlate(request.getPlate().replaceAll("[^a-zA-Z0-9]", ""));
+        this.carBusinessRules.checkIfPlateFormat(request.getPlate());
+        this.carBusinessRules.checkIfPlateExists(request.getPlate());
+        this.carBusinessRules.checkIfModelIdZero(request.getModelId());
+        this.carBusinessRules.checkIfColorIdZero(request.getColorId());
+        this.carBusinessRules.checkIfModelId(request.getModelId());
+        this.carBusinessRules.checkIfColorId(request.getColorId());
 
-        if(!request.getPlate().matches("^(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\\d{4,5})|([A-Z]{2})(\\d{3,4})|([A-Z]{3})(\\d{2,3}))$"))
-        {
-            throw new RuntimeException("Plate number should match Turkish plate format");
-        } else if (carRepository.existsByPlate(request.getPlate())) {
-            throw new RuntimeException("The same license plate cannot be registered");
-        } else if (request.getModel().getId() < 0) {
-            throw  new RuntimeException("Model ID cannot be less than zero.");
-        } else if (request.getColor().getId() < 0) {
-            throw  new RuntimeException("Color ID cannot be less than zero.");
-        } else if (!modelService.controlModelId(request.getModel().getId())) {
-            throw new RuntimeException("Model ID not found in database");
-        }
-        else if (!colorService.controlColorId(request.getColor().getId())) {
-            throw new RuntimeException("Color ID not found in database");
-        }
-        else {
-            Car car = this.modelMapperService.forRequest().map(request,Car.class);
-            carRepository.save(car);
-        }
-
+        Car car = this.modelMapperService.forRequest().map(request,Car.class);
+        carRepository.save(car);
     }
 
     @Override
     public void update(UpdateCarRequest request) {
         request.setPlate(request.getPlate().replaceAll("[^a-zA-Z0-9]", ""));
 
-        if(!request.getPlate().matches("^(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\\d{4,5})|([A-Z]{2})(\\d{3,4})|([A-Z]{3})(\\d{2,3}))$"))
-        {
-            throw new RuntimeException("Plate number should match Turkish plate format");
-        } else if (carRepository.existsByPlate(request.getPlate())) {
-            throw new RuntimeException("The same license plate cannot be registered");
-        } else if (request.getModel().getId() < 0) {
-            throw  new RuntimeException("Model ID cannot be less than zero.");
-        } else if (request.getColor().getId() < 0) {
-            throw  new RuntimeException("Color ID cannot be less than zero.");
-        } else if (!modelService.controlModelId(request.getModel().getId())) {
-            throw new RuntimeException("Model ID not found in database");
-        }
-        else if (!colorService.controlColorId(request.getColor().getId())) {
-            throw new RuntimeException("Color ID not found in database");
-        }
-        else {
+        this.carBusinessRules.checkIfPlateFormat(request.getPlate());
+        this.carBusinessRules.checkIfPlateExists(request.getPlate());
+        this.carBusinessRules.checkIfModelIdZero(request.getModelId());
+        this.carBusinessRules.checkIfColorIdZero(request.getColorId());
+        this.carBusinessRules.checkIfModelId(request.getModelId());
+        this.carBusinessRules.checkIfColorId(request.getColorId());
+
             Car car = this.modelMapperService.forRequest().map(request,Car.class);
             carRepository.save(car);
-        }
     }
 
     @Override

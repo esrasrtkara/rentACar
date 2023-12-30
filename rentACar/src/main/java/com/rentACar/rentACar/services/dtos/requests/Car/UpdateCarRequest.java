@@ -18,6 +18,8 @@ public class UpdateCarRequest {
     private String plate;
     @Min(value = 0,message = "Daily price should not be less than 0")
     private double dailyPrice;
-    private AddModelIdRequest model;
-    private AddModelIdRequest color;
+    private  String imagePath;
+    private short minFindeksRate;
+    private int modelId;
+    private int colorId;
 }
