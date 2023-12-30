@@ -1,6 +1,5 @@
 package com.rentACar.rentACar.services.dtos.requests.Car;
 
-import com.rentACar.rentACar.services.dtos.requests.Color.AddColorIdRequest;
 import com.rentACar.rentACar.services.dtos.requests.Model.AddModelIdRequest;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -17,6 +16,8 @@ public class AddCarRequest {
     private String plate;
     @Min(value = 0,message = "Daily price should not be less than 0")
     private double dailyPrice;
-    private AddModelIdRequest model;
-    private AddColorIdRequest color;
+    private  String imagePath;
+    private short minFindeksRate;
+    private  int modelId;
+    private int colorId;
 }

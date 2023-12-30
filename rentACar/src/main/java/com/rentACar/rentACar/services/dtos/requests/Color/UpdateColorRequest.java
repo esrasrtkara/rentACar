@@ -7,4 +7,5 @@ import lombok.Data;
 public class UpdateColorRequest {
     private int id;
     private String name;
+    private String code;
 }

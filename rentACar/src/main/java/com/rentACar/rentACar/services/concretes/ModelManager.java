@@ -9,6 +9,7 @@ import com.rentACar.rentACar.services.dtos.requests.Model.AddModelRequest;
 import com.rentACar.rentACar.services.dtos.requests.Model.UpdateModelRequest;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelResponse;
+import com.rentACar.rentACar.services.rules.ModelBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ModelManager implements ModelService {
     private final ModelRepository modelRepository;
-    private ModelMapperService modelMapperService;
-    private BrandService brandService;
+    private final ModelMapperService modelMapperService;
+    private final ModelBusinessRules modelBusinessRules;
+
 
     @Override
     public List<GetModelListResponse> getAll() {
@@ -41,11 +43,9 @@ public class ModelManager implements ModelService {
 
     @Override
     public void add(AddModelRequest request) {
-        if (modelRepository.existsByName(request.getName())){
-            throw new RuntimeException("Model with the same name cannot be added!");
-        } else if (!brandService.controlBrandId(request.getBrand().getId())) {
-            throw new RuntimeException("Brand ID not found");
-        }
+        this.modelBusinessRules.checkIfModelNameExists(request.getName());
+        this.modelBusinessRules.checkIfBrandId(request.getBrandId());
+
         Model model = this.modelMapperService.forRequest().map(request, Model.class);
         modelRepository.save(model);
     }

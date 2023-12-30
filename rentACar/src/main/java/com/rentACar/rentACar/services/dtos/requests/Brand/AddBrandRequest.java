@@ -7,4 +7,5 @@ import lombok.Data;
 public class AddBrandRequest {
     @Size(min = 2 , message = "Brand name cannot be less than 2 characters")
     private String name;
+    private String logoPath;
 }
