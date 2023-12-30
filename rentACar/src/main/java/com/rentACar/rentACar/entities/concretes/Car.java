@@ -1,4 +1,4 @@
-package com.rentACar.rentACar.entities;
+package com.rentACar.rentACar.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

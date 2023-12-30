@@ -1,7 +1,5 @@
 package com.rentACar.rentACar.services.abstracts;
 
-import com.rentACar.rentACar.entities.Model;
-import com.rentACar.rentACar.services.dtos.requests.Brand.UpdateBrandRequest;
 import com.rentACar.rentACar.services.dtos.requests.Model.AddModelRequest;
 import com.rentACar.rentACar.services.dtos.requests.Model.UpdateModelRequest;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;

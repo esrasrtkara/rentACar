@@ -1,7 +1,7 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
-import com.rentACar.rentACar.entities.Brand;
+import com.rentACar.rentACar.entities.concretes.Brand;
 import com.rentACar.rentACar.repositories.BrandRepository;
 import com.rentACar.rentACar.services.abstracts.BrandService;
 import com.rentACar.rentACar.services.dtos.requests.Brand.AddBrandRequest;

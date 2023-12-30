@@ -1,7 +1,7 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
-import com.rentACar.rentACar.entities.Color;
+import com.rentACar.rentACar.entities.concretes.Color;
 import com.rentACar.rentACar.repositories.ColorRepository;
 import com.rentACar.rentACar.services.abstracts.ColorService;
 import com.rentACar.rentACar.services.dtos.requests.Color.AddColorRequest;

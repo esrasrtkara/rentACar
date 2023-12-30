@@ -1,7 +1,7 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
-import com.rentACar.rentACar.entities.User;
+import com.rentACar.rentACar.entities.concretes.User;
 import com.rentACar.rentACar.repositories.UserRepository;
 import com.rentACar.rentACar.services.abstracts.UserService;
 import com.rentACar.rentACar.services.dtos.requests.User.AddUserRequest;
