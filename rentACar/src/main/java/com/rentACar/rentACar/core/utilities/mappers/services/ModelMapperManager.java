@@ -1,4 +1,4 @@
-package com.rentACar.rentACar.core.utilities.mappers;
+package com.rentACar.rentACar.core.utilities.mappers.services;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ModelMapperManager implements ModelMapperService{
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public ModelMapper forResponse() {

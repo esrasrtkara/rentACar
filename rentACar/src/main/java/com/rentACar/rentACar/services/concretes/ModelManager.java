@@ -1,6 +1,6 @@
 package com.rentACar.rentACar.services.concretes;
 
-import com.rentACar.rentACar.core.utilities.mappers.ModelMapperService;
+import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
 import com.rentACar.rentACar.entities.Model;
 import com.rentACar.rentACar.repositories.ModelRepository;
 import com.rentACar.rentACar.services.abstracts.BrandService;
@@ -10,8 +10,6 @@ import com.rentACar.rentACar.services.dtos.requests.Model.UpdateModelRequest;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelResponse;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
