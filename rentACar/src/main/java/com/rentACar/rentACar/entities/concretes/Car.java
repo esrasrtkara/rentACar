@@ -1,6 +1,7 @@
 package com.rentACar.rentACar.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rentACar.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,35 +16,29 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Car {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class Car extends BaseEntity {
 
     @Column(name = "kilometer")
     private int kilometer;
-
     @Column(name = "year")
     private int year;
-
     @Column(name = "plate")
     private String plate;
-
     @Column(name = "daily_price")
-    private double dailyPrice;
+    private Float dailyPrice;
+    @Column(name = "min_findeks_rate")
+    private short minFindeksRate;
+    @Column(name = "image_path")
+    private String imagePath;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "model_id")
     private Model model;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "color_id")
     private Color color;
 
     @OneToMany(mappedBy = "car")
-    @JsonIgnore
     private List<Rental> rentals;
 }
