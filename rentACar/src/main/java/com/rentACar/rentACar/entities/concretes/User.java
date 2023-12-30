@@ -1,4 +1,4 @@
-package com.rentACar.rentACar.entities;
+package com.rentACar.rentACar.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "colors")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Color {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,7 +22,20 @@ public class Color {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "color")
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "gsm")
+    private String gsm;
+
+    @Column(name = "email")
+    private String email;
+
+    @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private List<Car> cars;
+    private List<Customer> customers;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Employee> employees;
 }

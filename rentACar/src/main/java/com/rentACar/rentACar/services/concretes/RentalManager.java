@@ -1,7 +1,7 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
-import com.rentACar.rentACar.entities.Rental;
+import com.rentACar.rentACar.entities.concretes.Rental;
 import com.rentACar.rentACar.repositories.RentalRepository;
 import com.rentACar.rentACar.services.abstracts.*;
 import com.rentACar.rentACar.services.dtos.requests.Rental.AddRentalRequest;
