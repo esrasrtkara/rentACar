@@ -1,11 +1,7 @@
 package com.rentACar.rentACar.services.dtos.requests.Rental;
 
-import com.rentACar.rentACar.services.dtos.requests.Car.AddCarIdRequest;
-import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerIdRequest;
-import com.rentACar.rentACar.services.dtos.requests.User.AddUserIdRequest;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Null;
 import lombok.Data;
 import java.time.LocalDate;
 
@@ -18,7 +14,6 @@ public class AddRentalRequest {
     private LocalDate returnDate;
     @Nullable
     private int endKilometer;
-    private double discount;
-    private AddCarIdRequest car;
-    private AddCustomerIdRequest customer;
+    private int carId;
+    private int userId;
 }
