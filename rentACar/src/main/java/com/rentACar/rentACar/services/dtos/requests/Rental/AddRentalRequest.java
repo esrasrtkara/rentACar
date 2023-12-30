@@ -2,7 +2,6 @@ package com.rentACar.rentACar.services.dtos.requests.Rental;
 
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarIdRequest;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerIdRequest;
-import com.rentACar.rentACar.services.dtos.requests.Employee.AddEmployeeIdRequest;
 import com.rentACar.rentACar.services.dtos.requests.User.AddUserIdRequest;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -22,5 +21,4 @@ public class AddRentalRequest {
     private double discount;
     private AddCarIdRequest car;
     private AddCustomerIdRequest customer;
-    private AddEmployeeIdRequest employee;
 }

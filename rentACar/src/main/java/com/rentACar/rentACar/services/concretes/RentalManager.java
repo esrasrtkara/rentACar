@@ -22,7 +22,7 @@ public class RentalManager implements RentalService {
     private ModelMapperService modelMapperService;
     private CarService carService;
     private CustomerService customerService;
-    private EmployeeService employeeService;
+
 
     @Override
     public List<GetRentalListResponse> getAll() {
@@ -48,9 +48,8 @@ public class RentalManager implements RentalService {
             throw new RuntimeException("Car ID not found in database");
         } else if (!customerService.controlCustomerUserId(request.getCustomer().getId())) {
             throw new RuntimeException("Customer's User ID not found in database");
-        } else if (!employeeService.controlEmployeeUserId(request.getEmployee().getId())) {
-            throw new RuntimeException("Employee's User ID not found in database");
-        } else if (ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate()) > 25) {
+        }
+         else if (ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate()) > 25) {
             throw new RuntimeException("A vehicle can be rented for a maximum of 25 days.");
         } else {
             Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
@@ -60,7 +59,6 @@ public class RentalManager implements RentalService {
             double discount = request.getDiscount();
             double discountPrice = price * discount;
             double totalPrice = price - discountPrice;
-            rental.setTotalPrice(totalPrice);
             rentalRepository.save(rental);
         }
     }
