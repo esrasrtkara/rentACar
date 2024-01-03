@@ -23,6 +23,4 @@ public class ModelBusinessRules {
             throw new RuntimeException("Brand ID not found" );
         }
     }
-
-
 }
