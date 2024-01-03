@@ -30,6 +30,12 @@ public class Car extends BaseEntity {
     private short minFindeksRate;
     @Column(name = "image_path")
     private String imagePath;
+    @Column(name = "trunk_volume")
+    private int trunkVolume;
+    @Column(name = "capacity")
+    private int capacity;
+
+
 
     @ManyToOne
     @JoinColumn(name = "model_id")
@@ -41,4 +47,18 @@ public class Car extends BaseEntity {
 
     @OneToMany(mappedBy = "car")
     private List<Rental> rentals;
+
+
+    @ManyToOne
+    @JoinColumn(name="caseType_id")
+    private CaseType caseType;
+
+    @ManyToOne
+    @JoinColumn(name="fuelType_id")
+    private FuelType fuelType;
+
+    @ManyToOne
+    @JoinColumn(name="gearType_id")
+    private GearType gearType;
+
 }
