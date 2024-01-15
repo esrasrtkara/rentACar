@@ -14,6 +14,10 @@ public class GetCarListResponse {
     private int year;
     private String plate;
     private double dailyPrice;
-    private GetModelListResponse model;
-    private GetColorListResponse color;
+    private short minFindeksRate;
+    private String imagePath;
+    private int trunkVolume;
+    private int capacity;
+    private String modelName;
+    private String colorName;
 }
