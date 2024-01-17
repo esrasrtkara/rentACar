@@ -10,6 +10,9 @@ import com.rentACar.rentACar.services.dtos.responses.User.GetUserListResponse;
 import com.rentACar.rentACar.services.dtos.responses.User.GetUserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,5 +67,15 @@ public class UserManager implements UserService {
         }catch (NoSuchElementException e){
             return false;
         }
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                return userRepository.findByEmail(username).orElseThrow();
+            }
+        };
     }
 }
