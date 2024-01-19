@@ -41,11 +41,8 @@ public class User extends BaseEntity implements UserDetails {
     private List<Rating> ratings;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
+    @Column(name = "roles")
+    private List<Role>  authorities;
 
     @Override
     public String getUsername() {
