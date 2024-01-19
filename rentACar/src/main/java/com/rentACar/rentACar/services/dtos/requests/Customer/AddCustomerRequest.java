@@ -6,5 +6,6 @@ import lombok.Data;
 @Data
 public class AddCustomerRequest {
     @Size(min = 11 ,max = 11 , message = "Nationality ID must consist of 11 digits")
-    private String nationalityId;
+    private String firsName;
+    private String lastName;
 }
