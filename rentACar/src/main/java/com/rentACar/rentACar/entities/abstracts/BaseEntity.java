@@ -20,7 +20,7 @@ public abstract class BaseEntity {
     private LocalDate updatedDate;
 
     @PrePersist
-    private void beforedAdd(){
+    private void beforeAdd(){
         createDate = LocalDate.now();
     }
     @PreUpdate

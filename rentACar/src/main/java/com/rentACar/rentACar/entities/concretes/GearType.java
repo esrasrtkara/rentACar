@@ -16,7 +16,6 @@ import java.util.List;
 public class GearType extends BaseEntity {
     @Column(name = "name")
     private String name;
-
     @OneToMany(mappedBy = "gearType")
     private List<Car> cars;
 
