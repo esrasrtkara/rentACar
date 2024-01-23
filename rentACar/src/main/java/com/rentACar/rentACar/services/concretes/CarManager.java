@@ -1,5 +1,6 @@
 package com.rentACar.rentACar.services.concretes;
 
+import com.rentACar.rentACar.core.services.CloudinaryService;
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
 import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.repositories.CarRepository;
@@ -24,6 +25,7 @@ public class CarManager implements CarService {
     private final CarRepository carRepository;
     private final ModelMapperService modelMapperService;
     private final CarBusinessRules carBusinessRules;
+    private final CloudinaryService cloudinaryService;
 
 
     @Override
@@ -52,6 +54,7 @@ public class CarManager implements CarService {
         this.carBusinessRules.checkIfColorId(request.getColorId());
 
         Car car = this.modelMapperService.forRequest().map(request,Car.class);
+        car.setImagePath(cloudinaryService.uploadFile(request.getFile()));
         carRepository.save(car);
     }
 
