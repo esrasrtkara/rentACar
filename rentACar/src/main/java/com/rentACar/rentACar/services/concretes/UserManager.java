@@ -75,9 +75,16 @@ public class UserManager implements UserService {
         }
     }
 
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("User not Found"));
     }
+
+
 }

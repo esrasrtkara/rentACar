@@ -4,6 +4,7 @@ import com.rentACar.rentACar.services.dtos.requests.Model.AddModelIdRequest;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class AddCarRequest {
@@ -16,7 +17,7 @@ public class AddCarRequest {
     private String plate;
     @Min(value = 0,message = "Daily price should not be less than 0")
     private double dailyPrice;
-    private  String imagePath;
+    private MultipartFile file;
     private short minFindeksRate;
     private  int modelId;
     private int colorId;
