@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("api/cars")
 @AllArgsConstructor
 @CrossOrigin
-
 public class CarsController {
     private final CarService carService;
 
@@ -30,7 +29,7 @@ public class CarsController {
     }
 
     @PostMapping
-    public void add(@Valid AddCarRequest request){
+    public void add(@RequestBody  AddCarRequest request){
         carService.add(request);
     }
 

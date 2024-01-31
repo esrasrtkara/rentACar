@@ -49,16 +49,16 @@ public class Car extends BaseEntity {
     private List<Rental> rentals;
 
 
-    @ManyToOne
-    @JoinColumn(name="caseType_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name="case_type")
     private CaseType caseType;
 
-    @ManyToOne
-    @JoinColumn(name="fuelType_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fuel_type")
     private FuelType fuelType;
 
-    @ManyToOne
-    @JoinColumn(name="gearType_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name="gear_type")
     private GearType gearType;
 
 }

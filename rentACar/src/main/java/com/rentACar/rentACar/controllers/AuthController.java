@@ -5,14 +5,13 @@ import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCorporateCustomer
 import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Auth.LoginRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auths")
-@AllArgsConstructor
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+@CrossOrigin
 public class AuthController {
 
     private final AuthService authService;
