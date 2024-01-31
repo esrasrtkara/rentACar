@@ -15,5 +15,4 @@ public class AddRentalRequest {
     @Nullable
     private int endKilometer;
     private int carId;
-    private int userId;
 }

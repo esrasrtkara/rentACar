@@ -16,7 +16,8 @@ public interface UserService extends UserDetailsService{
     void update(UpdateUserRequest request);
     void delete(int id);
     boolean controlUserId(int id);
-
-
     void save(User user);
+
+    User userEmail(String email);
+
 }

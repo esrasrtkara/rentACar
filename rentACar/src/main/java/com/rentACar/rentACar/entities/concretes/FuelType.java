@@ -8,17 +8,18 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
-@Table(name="fuel_types")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 
-public class FuelType extends BaseEntity {
-    @Column(name = "name")
-    private String name;
 
-    @OneToMany(mappedBy = "fuelType")
-    private List<Car> cars;
+
+
+public enum FuelType  {
+    GASOLINE,
+    DIESEL,
+    ELECTRICITY;
+
+
+   public String getFuelType(){
+       return name();
+   }
 
 }

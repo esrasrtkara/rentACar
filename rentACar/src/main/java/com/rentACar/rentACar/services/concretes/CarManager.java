@@ -96,7 +96,7 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public double carDailyPrice(int id) {
+    public Float carDailyPrice(int id) {
         Car car = carRepository.findById(id).orElseThrow();
         return car.getDailyPrice();
     }

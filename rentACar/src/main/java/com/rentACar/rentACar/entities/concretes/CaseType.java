@@ -8,18 +8,16 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
-@Table(name="case_types")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 
-public class CaseType extends BaseEntity {
-    @Column(name="name")
-    private String name;
 
-    @OneToMany(mappedBy = "caseType")
-    private List<Car> cars;
+public enum CaseType {
+    SEDAN,
+    HATCHBACK,
+    SUV;
 
+
+   public String getCaseType(){
+       return name();
+   }
 
 }
