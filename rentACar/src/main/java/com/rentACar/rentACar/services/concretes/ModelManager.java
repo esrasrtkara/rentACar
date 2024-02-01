@@ -47,12 +47,17 @@ public class ModelManager implements ModelService {
         this.modelBusinessRules.checkIfBrandId(request.getBrandId());
 
         Model model = this.modelMapperService.forRequest().map(request, Model.class);
+        model.setName(request.getName().toUpperCase());
         modelRepository.save(model);
     }
 
     @Override
     public void update(UpdateModelRequest request) {
+        this.modelBusinessRules.checkIfModelNameExists(request.getName());
+        this.modelBusinessRules.checkIfBrandId(request.getBrandId());
+
         Model model = this.modelMapperService.forRequest().map(request, Model.class);
+        model.setName(request.getName().toUpperCase());
         modelRepository.save(model);
     }
 

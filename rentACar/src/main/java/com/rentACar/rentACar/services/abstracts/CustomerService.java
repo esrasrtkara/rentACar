@@ -14,7 +14,7 @@ public interface CustomerService {
     void add(AddCustomerRequest request);
     void update(UpdateCustomerRequest request);
     void delete(int id);
-    boolean controlCustomerUserId(int id);
+
 
 
 }

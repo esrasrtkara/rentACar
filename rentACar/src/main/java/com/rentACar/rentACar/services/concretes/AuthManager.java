@@ -1,7 +1,6 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.services.JwtService;
-import com.rentACar.rentACar.entities.concretes.Customer;
 import com.rentACar.rentACar.entities.concretes.Role;
 import com.rentACar.rentACar.entities.concretes.User;
 import com.rentACar.rentACar.services.abstracts.AuthService;
@@ -13,17 +12,13 @@ import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Auth.LoginRequest;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.AddCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
-import com.rentACar.rentACar.services.dtos.requests.Model.AddModelIdRequest;
-import com.rentACar.rentACar.services.dtos.requests.User.AddUserRequest;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.net.FileNameMap;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

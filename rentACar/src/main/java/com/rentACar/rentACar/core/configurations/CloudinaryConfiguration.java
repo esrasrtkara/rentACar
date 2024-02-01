@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 public class CloudinaryConfiguration {
 
@@ -25,4 +26,5 @@ public class CloudinaryConfiguration {
                 "api_key", apiKey,
                 "api_secret", apiSecret));
     }
+
 }

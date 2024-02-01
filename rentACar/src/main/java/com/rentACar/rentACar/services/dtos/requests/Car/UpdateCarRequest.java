@@ -1,9 +1,12 @@
 package com.rentACar.rentACar.services.dtos.requests.Car;
 
-import com.rentACar.rentACar.services.dtos.requests.Model.AddModelIdRequest;
+import com.rentACar.rentACar.entities.concretes.CaseType;
+import com.rentACar.rentACar.entities.concretes.FuelType;
+import com.rentACar.rentACar.entities.concretes.GearType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class UpdateCarRequest {
@@ -18,8 +21,14 @@ public class UpdateCarRequest {
     private String plate;
     @Min(value = 0,message = "Daily price should not be less than 0")
     private double dailyPrice;
-    private  String imagePath;
+    private MultipartFile file;
     private short minFindeksRate;
-    private int modelId;
+    private int trunkVolume;
+    @Min(value = 2, message = "Capacity should not be earlier than 2")
+    private int capacity;
+    private CaseType caseType;
+    private FuelType fuelType;
+    private GearType gearType;
+    private  int modelId;
     private int colorId;
 }

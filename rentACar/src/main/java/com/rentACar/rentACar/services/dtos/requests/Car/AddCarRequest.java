@@ -1,6 +1,9 @@
 package com.rentACar.rentACar.services.dtos.requests.Car;
 
-import com.rentACar.rentACar.services.dtos.requests.Model.AddModelIdRequest;
+import com.rentACar.rentACar.entities.concretes.CaseType;
+import com.rentACar.rentACar.entities.concretes.FuelType;
+import com.rentACar.rentACar.entities.concretes.GearType;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
@@ -19,6 +22,12 @@ public class AddCarRequest {
     private double dailyPrice;
     private MultipartFile file;
     private short minFindeksRate;
+    private int trunkVolume;
+    @Min(value = 2, message = "Capacity should not be earlier than 2")
+    private int capacity;
+    private CaseType caseType;
+    private FuelType fuelType;
+    private GearType gearType;
     private  int modelId;
     private int colorId;
 }

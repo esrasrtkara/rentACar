@@ -16,8 +16,6 @@ public interface RentalService {
     GetRentalResponse add(AddRentalRequest request);
     void update(UpdateRentalRequest request);
     void delete(int id);
-    LocalDate startDate(int id);
-    LocalDate endDate(int id);
-    Float dailyPrice(int id);
-    public int rentalId(int userId);
+    public boolean controlRentalId(int id);
+
 }

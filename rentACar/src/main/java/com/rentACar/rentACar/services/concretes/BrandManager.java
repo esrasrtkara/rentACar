@@ -42,12 +42,15 @@ public class BrandManager implements BrandService {
     public void add(AddBrandRequest request) {
         this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
+        brand.setName(request.getName().toUpperCase());
         brandRepository.save(brand);
     }
 
     @Override
     public void update(UpdateBrandRequest request) {
+        this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
+        brand.setName(request.getName().toUpperCase());
         brandRepository.save(brand);
     }
 

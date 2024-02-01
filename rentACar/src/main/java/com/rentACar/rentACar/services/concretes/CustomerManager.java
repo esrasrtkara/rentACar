@@ -9,6 +9,7 @@ import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Customer.UpdateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerResponse;
+import com.rentACar.rentACar.services.rules.CustomerBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 public class CustomerManager implements CustomerService {
     private CustomerRepository customerRepository;
     private ModelMapperService modelMapperService;
-    private UserService userService;
+    private CustomerBusinessRules customerBusinessRules;
 
     @Override
     public List<GetCustomerListResponse> getAll() {
@@ -40,13 +41,19 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void add(AddCustomerRequest request) {
+        customerBusinessRules.checkIfUserId(request.getUserId());
         Customer customer = modelMapperService.forRequest().map(request, Customer.class);
+        customer.setFirstName(request.getFirstName().toUpperCase());
+        customer.setLastName(request.getLastName().toUpperCase());
         customerRepository.save(customer);
     }
 
     @Override
     public void update(UpdateCustomerRequest request) {
+        customerBusinessRules.checkIfUserId(request.getUserId());
         Customer customer = modelMapperService.forRequest().map(request, Customer.class);
+        customer.setFirstName(request.getFirstName().toUpperCase());
+        customer.setLastName(request.getLastName().toUpperCase());
         customerRepository.save(customer);
     }
 
@@ -55,17 +62,4 @@ public class CustomerManager implements CustomerService {
         Customer customerToDelete = customerRepository.findById(id).orElseThrow();
         customerRepository.delete(customerToDelete);
     }
-
-    @Override
-    public boolean controlCustomerUserId(int id) {
-        Customer customer ;
-        try{
-            customer = customerRepository.findById(id).orElseThrow();
-        }catch (NoSuchElementException e){
-            return false;
-        }
-        return   userService.controlUserId(customer.getUser().getId());
-    }
-
-
 }
