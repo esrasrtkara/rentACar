@@ -11,6 +11,6 @@ public class GetRentalResponse {
     private LocalDate returnDate;
     private int startKilometer;
     private int endKilometer;
-    private double totalPrice;
-    private double discount;
+    private int carId;
+    private int userId;
 }

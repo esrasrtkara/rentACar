@@ -56,12 +56,7 @@ public class SecurityConfiguration  {
             "/api/auth/login/**"
 
     };
-    private io.swagger.v3.oas.models.security.SecurityScheme createAPIKeyScheme() {
-        return new io.swagger.v3.oas.models.security.SecurityScheme()
-                .type(io.swagger.v3.oas.models.security.SecurityScheme.Type.HTTP)
-                .scheme("bearer")
-                .bearerFormat("JWT");
-    }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -70,7 +65,6 @@ public class SecurityConfiguration  {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((req) -> req
                         .requestMatchers(WHITE_LIST_URLS).permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/cars/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/users/**").hasAnyAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
@@ -114,17 +108,5 @@ public class SecurityConfiguration  {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-    @Bean
-    public OpenAPI openAPI() {
-        return new OpenAPI().addSecurityItem(new SecurityRequirement().
-                        addList("Bearer Authentication"))
-                .components(new Components().addSecuritySchemes
-                        ("Bearer Authentication", createAPIKeyScheme()))
-                .info(new Info().title("My REST API")
-                        .description("Some custom description of API.")
-                        .version("1.0").contact(new Contact().name("rentacar")
-                                .email( "www.rentacar.com").url("esra@gmail.com"))
-                        .license(new License().name("License of API")
-                                .url("API license URL")));
-    }
+
 }

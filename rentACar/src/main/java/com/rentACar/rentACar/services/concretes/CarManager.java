@@ -69,8 +69,9 @@ public class CarManager implements CarService {
         this.carBusinessRules.checkIfModelId(request.getModelId());
         this.carBusinessRules.checkIfColorId(request.getColorId());
 
-            Car car = this.modelMapperService.forRequest().map(request,Car.class);
-            carRepository.save(car);
+        Car car = this.modelMapperService.forRequest().map(request,Car.class);
+        car.setImagePath(cloudinaryService.uploadFile(request.getFile()));
+        carRepository.save(car);
     }
 
     @Override

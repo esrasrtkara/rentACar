@@ -56,7 +56,6 @@ public class RentalManager implements RentalService {
             Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
             rental.setStartKilometer(carService.carKilometer(request.getCarId()));
             rental.setUser(userService.userEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-            double dailyPrice = carService.carDailyPrice(request.getCarId());
             Float price = carService.carDailyPrice(request.getCarId())*totalDay;
             rentalRepository.save(rental);
             invoiceService.add(totalDay,price,rental);
@@ -66,8 +65,16 @@ public class RentalManager implements RentalService {
 
     @Override
     public void update(UpdateRentalRequest request) {
+        Long totalDay = ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate());
+        this.rentalBusinessRules.checkIfEndDateBeforeStartDate(request.getStartDate(),request.getEndDate());
+        this.rentalBusinessRules.checkIfCarId(request.getCarId());
+        this.rentalBusinessRules.check25Day(request.getStartDate(),request.getEndDate());
         Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
+        rental.setStartKilometer(carService.carKilometer(request.getCarId()));
+        rental.setUser(userService.userEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+        Float price = carService.carDailyPrice(request.getCarId())*totalDay;
         rentalRepository.save(rental);
+        invoiceService.add(totalDay,price,rental);
     }
 
     @Override
@@ -76,28 +83,13 @@ public class RentalManager implements RentalService {
         rentalRepository.delete(rentalToDelete);
     }
 
-    @Override
-    public LocalDate startDate(int id) {
-        Rental rental = rentalRepository.findById(id).orElseThrow();
-        return rental.getStartDate();
+    public boolean controlRentalId(int id) {
+        try {
+            Rental rental=rentalRepository.findById(id).orElseThrow();
+            return true;
+        } catch (NoSuchFieldError e) {
+            return false;
+        }
     }
-
-    @Override
-    public LocalDate endDate(int id) {
-        Rental rental = rentalRepository.findById(id).orElseThrow();
-        return rental.getEndDate();
-    }
-
-    @Override
-    public Float dailyPrice(int id) {
-        Rental rental = rentalRepository.findById(id).orElseThrow();
-        return carService.carDailyPrice(rental.getCar().getId());
-    }
-
-    public int rentalId(int userId){
-        Rental rental = rentalRepository.findByUserId(userId).orElseThrow();
-        return rental.getId();
-    }
-
 
 }
