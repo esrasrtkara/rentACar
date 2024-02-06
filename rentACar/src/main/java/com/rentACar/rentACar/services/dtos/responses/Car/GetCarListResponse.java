@@ -1,5 +1,8 @@
 package com.rentACar.rentACar.services.dtos.responses.Car;
 
+import com.rentACar.rentACar.entities.concretes.CaseType;
+import com.rentACar.rentACar.entities.concretes.FuelType;
+import com.rentACar.rentACar.entities.concretes.GearType;
 import com.rentACar.rentACar.services.dtos.responses.Color.GetColorListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,9 @@ public class GetCarListResponse {
     private String imagePath;
     private int trunkVolume;
     private int capacity;
+    private CaseType caseType;
+    private FuelType fuelType;
+    private GearType gearType;
     private String modelName;
     private String colorName;
 }

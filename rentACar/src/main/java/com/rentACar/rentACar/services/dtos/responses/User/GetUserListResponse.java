@@ -4,8 +4,6 @@ import lombok.Data;
 
 @Data
 public class GetUserListResponse {
-    private String name;
-    private String surname;
-    private String gsm;
     private String email;
+    private String password;
 }

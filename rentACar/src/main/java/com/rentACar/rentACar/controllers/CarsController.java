@@ -29,12 +29,12 @@ public class CarsController {
     }
 
     @PostMapping
-    public void add(@RequestBody @Valid AddCarRequest request){
+    public void add(@ModelAttribute @Valid AddCarRequest request){
         carService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody @Valid UpdateCarRequest request){
+    public void update(@ModelAttribute @Valid UpdateCarRequest request){
         carService.update(request);
     }
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+<<<<<<< HEAD
 @Entity
 @Table(name = "gear_types")
 @Data
@@ -18,5 +19,15 @@ public class GearType extends BaseEntity {
     private String name;
     @OneToMany(mappedBy = "gearType")
     private List<Car> cars;
+=======
+
+public enum GearType  {
+    AUTOMATIC,
+    MANUAL;
+
+   public  String getGearType(){
+       return name();
+   }
+>>>>>>> main
 
 }

@@ -1,5 +1,6 @@
 package com.rentACar.rentACar.services.abstracts;
 
+import com.rentACar.rentACar.entities.concretes.Customer;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Customer.UpdateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerListResponse;
@@ -13,5 +14,7 @@ public interface CustomerService {
     void add(AddCustomerRequest request);
     void update(UpdateCustomerRequest request);
     void delete(int id);
-    boolean controlCustomerUserId(int id);
+
+
+
 }

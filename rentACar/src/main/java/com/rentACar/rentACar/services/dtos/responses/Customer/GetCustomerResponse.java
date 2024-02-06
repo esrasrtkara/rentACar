@@ -5,5 +5,7 @@ import lombok.Data;
 @Data
 public class GetCustomerResponse {
     private int id;
-    private String nationalityId;
+    private String firstName;
+    private String lastName;
+    private int UserId;
 }

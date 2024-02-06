@@ -1,5 +1,6 @@
 package com.rentACar.rentACar.services.abstracts;
 
+import com.rentACar.rentACar.entities.concretes.User;
 import com.rentACar.rentACar.services.dtos.requests.User.AddUserRequest;
 import com.rentACar.rentACar.services.dtos.requests.User.UpdateUserRequest;
 import com.rentACar.rentACar.services.dtos.responses.User.GetUserListResponse;
@@ -15,6 +16,8 @@ public interface UserService extends UserDetailsService{
     void update(UpdateUserRequest request);
     void delete(int id);
     boolean controlUserId(int id);
+    void save(User user);
 
+    User userEmail(String email);
 
 }
