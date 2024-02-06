@@ -12,6 +12,7 @@ import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import com.rentACar.rentACar.services.rules.CarBusinessRules;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -75,6 +76,7 @@ public class CarManager implements CarService {
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         Car carToDelete = carRepository.findById(id).orElseThrow();
         carRepository.delete(carToDelete);
