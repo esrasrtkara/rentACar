@@ -11,6 +11,7 @@ import com.rentACar.rentACar.services.dtos.requests.Rental.UpdateRentalRequest;
 import com.rentACar.rentACar.services.dtos.responses.Rental.GetRentalListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Rental.GetRentalResponse;
 import com.rentACar.rentACar.services.rules.RentalBusinessRules;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,6 +79,7 @@ public class RentalManager implements RentalService {
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         Rental rentalToDelete = rentalRepository.findById(id).orElseThrow();
         rentalRepository.delete(rentalToDelete);

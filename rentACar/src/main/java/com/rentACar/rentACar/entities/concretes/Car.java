@@ -45,7 +45,7 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "color_id")
     private Color color;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car",cascade = CascadeType.REMOVE)
     private List<Rental> rentals;
 
 
