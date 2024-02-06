@@ -10,6 +10,7 @@ import com.rentACar.rentACar.services.dtos.responses.Invoice.GetInvoiceListRespo
 import com.rentACar.rentACar.services.dtos.responses.Invoice.GetInvoiceResponse;
 import com.rentACar.rentACar.services.rules.InvoiceBusinessRules;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
