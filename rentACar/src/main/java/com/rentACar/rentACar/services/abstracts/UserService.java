@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService{
     List<GetUserListResponse> getAll();
     GetUserResponse getById(int id);
     void add(AddUserRequest request);
@@ -16,5 +16,5 @@ public interface UserService {
     void delete(int id);
     boolean controlUserId(int id);
 
-    UserDetailsService userDetailsService();
+
 }
