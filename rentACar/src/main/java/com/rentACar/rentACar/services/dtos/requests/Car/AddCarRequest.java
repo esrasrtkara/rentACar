@@ -3,7 +3,6 @@ package com.rentACar.rentACar.services.dtos.requests.Car;
 import com.rentACar.rentACar.entities.concretes.CaseType;
 import com.rentACar.rentACar.entities.concretes.FuelType;
 import com.rentACar.rentACar.entities.concretes.GearType;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;

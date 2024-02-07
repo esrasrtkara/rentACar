@@ -3,8 +3,6 @@ package com.rentACar.rentACar.services.dtos.responses.Car;
 import com.rentACar.rentACar.entities.concretes.CaseType;
 import com.rentACar.rentACar.entities.concretes.FuelType;
 import com.rentACar.rentACar.entities.concretes.GearType;
-import com.rentACar.rentACar.services.dtos.responses.Color.GetColorListResponse;
-import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
