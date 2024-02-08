@@ -1,19 +1,15 @@
 package com.rentACar.rentACar.entities.concretes;
 
-import com.rentACar.rentACar.entities.abstracts.BaseEntity;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public enum GearType  {
     AUTOMATIC,
     MANUAL;
 
-    public  String getGearType(){
+    @Contract(pure = true)
+    public @NotNull String getGearType(){
         return name();
     }
 
