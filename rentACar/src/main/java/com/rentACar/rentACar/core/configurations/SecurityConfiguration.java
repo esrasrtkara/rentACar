@@ -53,7 +53,9 @@ public class SecurityConfiguration  {
             "/v3/api-docs/**",
             "/rentACar-openapi/**",
             "/api/cars/**",
-            "/api/auth/login/**"
+            "/api/auth/login/**",
+            "/api/auth/customer-register/**",
+            "/api/auth/corporate-register/**"
 
     };
 
