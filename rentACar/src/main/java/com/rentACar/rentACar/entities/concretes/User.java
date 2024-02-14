@@ -28,6 +28,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
+
     @OneToMany(mappedBy = "user")
     private List<Customer> customers;
 
@@ -39,6 +40,12 @@ public class User extends BaseEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Rating> ratings;
+
+    @ManyToOne
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
+
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "roles")

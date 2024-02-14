@@ -1,6 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
 import com.rentACar.rentACar.services.abstracts.InvoiceService;
+import com.rentACar.rentACar.services.dtos.requests.Invoice.AddInvoiceRequest;
 import com.rentACar.rentACar.services.dtos.requests.Invoice.UpdateInvoiceRequest;
 import com.rentACar.rentACar.services.dtos.responses.Invoice.GetInvoiceListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Invoice.GetInvoiceResponse;
@@ -23,6 +24,10 @@ public class InvoiceController {
     @GetMapping("{id}")
     GetInvoiceResponse getById(@PathVariable int id){
         return invoiceService.getById(id);
+    }
+    @PostMapping
+    void add(@RequestBody AddInvoiceRequest request){
+        invoiceService.add(request);
     }
     @PutMapping
     void update(@RequestBody UpdateInvoiceRequest request){

@@ -13,4 +13,6 @@ public class GetRentalResponse {
     private int endKilometer;
     private int carId;
     private int userId;
+    private Float discount;
+    private String discountCode;
 }

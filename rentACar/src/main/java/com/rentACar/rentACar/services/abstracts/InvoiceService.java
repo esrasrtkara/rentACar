@@ -12,7 +12,7 @@ import java.util.List;
 public interface InvoiceService {
     public List<GetInvoiceListResponse> getAll();
     public GetInvoiceResponse getById(int id);
-    public void add(Long totalDay, Float price, Rental rental);
+    public void add(AddInvoiceRequest request);
     public void update(UpdateInvoiceRequest request);
     public void delete(int id);
 

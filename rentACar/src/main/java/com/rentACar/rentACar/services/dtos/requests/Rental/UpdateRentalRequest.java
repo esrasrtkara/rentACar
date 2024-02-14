@@ -15,6 +15,9 @@ public class UpdateRentalRequest {
     private LocalDate returnDate;
     @Nullable
     private int endKilometer;
+    @Nullable
+    private String discountCode;
+    private int userId;
     private int carId;
 
 }
