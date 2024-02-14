@@ -4,6 +4,7 @@ import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
 import com.rentACar.rentACar.entities.concretes.User;
 import com.rentACar.rentACar.repositories.UserRepository;
 import com.rentACar.rentACar.services.abstracts.CustomerService;
+import com.rentACar.rentACar.services.abstracts.RentalService;
 import com.rentACar.rentACar.services.abstracts.UserService;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.User.AddUserRequest;
@@ -27,9 +28,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Data
 public class UserManager implements UserService {
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private ModelMapperService modelMapperService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final ModelMapperService modelMapperService;
+
 
     @Override
     public List<GetUserListResponse> getAll() {
@@ -56,7 +58,12 @@ public class UserManager implements UserService {
 
     @Override
     public void update(UpdateUserRequest request) {
-        User user = modelMapperService.forRequest().map(request, User.class);
+      //  User user = modelMapperService.forRequest().map(request, User.class);
+        //userRepository.save(user);
+        User user = User.builder()
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword())).build();
+                user.setId(request.getId());
         userRepository.save(user);
     }
 
@@ -85,6 +92,12 @@ public class UserManager implements UserService {
     public User userEmail(String email) {
         User user =userRepository.findByEmail(email).orElseThrow();
         return user;
+    }
+
+    @Override
+    public int userId(String email) {
+        User user =userRepository.findByEmail(email).orElseThrow();
+        return user.getId();
     }
 
 

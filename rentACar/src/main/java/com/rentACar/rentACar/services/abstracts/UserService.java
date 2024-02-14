@@ -20,4 +20,6 @@ public interface UserService extends UserDetailsService{
 
     User userEmail(String email);
 
+    public int userId(String email);
+
 }

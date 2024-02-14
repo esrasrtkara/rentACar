@@ -17,10 +17,11 @@ public class Invoice extends BaseEntity {
     private Float totalPrice;
     @Column(name = "discount_rate")
     private Float discountRate;
-    @Column(name = "tax_rate")
-    private Float taxRate;
+    @Column(name = "taxt_rate")
+    private Float taxtRate;
 
     @ManyToOne
     @JoinColumn(name = "rental_id")
     private Rental rental;
+
 }

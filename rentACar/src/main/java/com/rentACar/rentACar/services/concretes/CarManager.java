@@ -6,7 +6,9 @@ import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.abstracts.ColorService;
+import com.rentACar.rentACar.services.abstracts.DiscountService;
 import com.rentACar.rentACar.services.abstracts.ModelService;
+import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
@@ -27,6 +29,7 @@ public class CarManager implements CarService {
     private final ModelMapperService modelMapperService;
     private final CarBusinessRules carBusinessRules;
     private final CloudinaryService cloudinaryService;
+
 
 
     @Override
@@ -103,4 +106,30 @@ public class CarManager implements CarService {
         Car car = carRepository.findById(id).orElseThrow();
         return car.getDailyPrice();
     }
+
+
+
+    @Override
+    public Float carTaxRate(int id) {
+        Car car = carRepository.findById(id).orElseThrow();
+        return car.getTaxRate().getRate();
+    }
+
+    @Override
+    public String carStatus(int id) {
+        Car car = carRepository.findById(id).orElseThrow();
+        return car.getCarStatus().name();
+    }
+
+    @Override
+    public Car rateCar(int carId, short minFindeksRate) {
+        Car car = carRepository.findById(carId).orElseThrow(()->new RuntimeException(Messages.CHECK_IF_CAR_ID));
+        short currentRating  = car.getMinFindeksRate();
+        int numOfRaiting = carRepository.countRatings(carId);
+        short newRating = (short) ((currentRating * numOfRaiting + minFindeksRate)/(numOfRaiting+1));
+        car.setMinFindeksRate(newRating);
+        return carRepository.save(car);
+    }
+
+
 }
