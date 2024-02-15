@@ -25,14 +25,19 @@ public class Messages {
 
     public static String ADDED_BRAND = "Brand added.";
     public static String UPDATED_BRAND = "Brand updated.";
-    public static String DELETED_BRAND = "Brand deleted";
+    public static String DELETED_BRAND = "Brand deleted.";
 
     public static String ADDED_COLOR ="Color added.";
-    public static String UPDATED_COLOR ="Color updated";
-    public static String DELETED_COLOR ="Color deleted";
+    public static String UPDATED_COLOR ="Color updated.";
+    public static String DELETED_COLOR ="Color deleted.";
 
     public static String ADDED_MODEL ="Model added.";
     public static String UPDATED_MODEL ="Model updated.";
-    public static String DELETED_MODEL ="Model deleted";
+    public static String DELETED_MODEL ="Model deleted.";
+
+    public static String ADDED_CUSTOMER ="Customer added.";
+    public static String ADDED_CORPORATE_CUSTOMER ="Corporate customer added.";
+    public static String LOGIN="Login successful";
+    public static String LOGIN_ERROR="Information is Incorrect.";
 
 }
