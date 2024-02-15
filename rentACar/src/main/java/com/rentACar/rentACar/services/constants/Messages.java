@@ -48,4 +48,7 @@ public class Messages {
     public static String UPDATED_COMMENT="Comment updated";
     public static String DELETED_COMMENT="Comment deleted";
 
+    public static String DELETED_CORPORATE_CUSTOMER="Corporate customer deleted";
+    public static String UPDATED_CORPORATE_CUSTOMER="Corporate customer updated";
+
 }

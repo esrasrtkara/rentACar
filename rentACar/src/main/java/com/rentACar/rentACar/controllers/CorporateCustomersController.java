@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.CorporateCustomerService;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.AddCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.UpdateCorporateCustomerRequest;
@@ -14,28 +16,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/corporates")
 @AllArgsConstructor
-public class CorporateCustomerController {
+public class CorporateCustomersController {
     private final CorporateCustomerService corporateCustomerService;
 
     @GetMapping
-    public List<GetCorporateCustomerListResponse> getAll(){
+    public DataResult<List<GetCorporateCustomerListResponse>> getAll(){
         return corporateCustomerService.getAll();
     }
     @GetMapping("{id}")
-    public GetCorporateCustomerResponse getById(@PathVariable int id){
+    public DataResult<GetCorporateCustomerResponse> getById(@PathVariable int id){
         return corporateCustomerService.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody @Valid AddCorporateCustomerRequest request){
-        corporateCustomerService.add(request);
+    public Result add(@RequestBody @Valid AddCorporateCustomerRequest request){
+        return corporateCustomerService.add(request);
     }
     @PutMapping
-    public void update(@RequestBody @Valid UpdateCorporateCustomerRequest request){
-        corporateCustomerService.update(request);
+    public Result update(@RequestBody @Valid UpdateCorporateCustomerRequest request){
+        return corporateCustomerService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        corporateCustomerService.delete(id);
+    public Result delete(@PathVariable int id){
+        return corporateCustomerService.delete(id);
     }
 }
