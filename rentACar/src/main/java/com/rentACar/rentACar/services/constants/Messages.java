@@ -58,4 +58,8 @@ public class Messages {
     public static String UPDATED_DISCOUNT="Discount updated";
     public static String DELETED_DISCOUNT="Discount deleted";
 
+    public static String ADDED_INVOICE ="Invoice added.";
+    public static String UPDATED_INVOICE= "Invoice updated";
+    public static String DELETED_INVOICE="Invoice deleted";
+
 }
