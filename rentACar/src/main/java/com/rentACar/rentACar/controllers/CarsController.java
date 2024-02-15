@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
@@ -19,27 +21,27 @@ public class CarsController {
     private final CarService carService;
 
     @GetMapping
-    public List<GetCarListResponse> getAll(){
+    public DataResult<List<GetCarListResponse>> getAll(){
         return carService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetCarResponse getById(@PathVariable int id){
+    public DataResult<GetCarResponse> getById(@PathVariable int id){
         return carService.getById(id);
     }
 
     @PostMapping
-    public void add(@ModelAttribute @Valid AddCarRequest request){
-        carService.add(request);
+    public Result add(@ModelAttribute @Valid AddCarRequest request){
+        return carService.add(request);
     }
 
     @PutMapping
-    public void update(@ModelAttribute @Valid UpdateCarRequest request){
-        carService.update(request);
+    public Result update(@ModelAttribute @Valid UpdateCarRequest request){
+        return carService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        carService.delete(id);
+    public Result delete(@PathVariable int id){
+        return carService.delete(id);
     }
 }

@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.services.abstracts;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
@@ -9,15 +11,15 @@ import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import java.util.List;
 
 public interface CarService {
-    List<GetCarListResponse> getAll();
+    DataResult<List<GetCarListResponse>> getAll();
 
-    GetCarResponse getById(int id);
+    DataResult<GetCarResponse> getById(int id);
 
-    void add(AddCarRequest request);
+    Result add(AddCarRequest request);
 
-    void update(UpdateCarRequest request);
+    Result update(UpdateCarRequest request);
 
-    void delete(int id);
+    Result delete(int id);
 
     boolean controlCarId(int id);
 
