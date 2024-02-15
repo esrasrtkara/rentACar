@@ -44,4 +44,8 @@ public class Messages {
     public static String UPDATED_CAR="Car updated.";
     public static String DELETED_CAR="Car deleted";
 
+    public static String ADDED_COMMENT="Comment added.";
+    public static String UPDATED_COMMENT="Comment updated";
+    public static String DELETED_COMMENT="Comment deleted";
+
 }
