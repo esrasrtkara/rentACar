@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.BrandService;
 import com.rentACar.rentACar.services.dtos.requests.Brand.AddBrandRequest;
 import com.rentACar.rentACar.services.dtos.requests.Brand.UpdateBrandRequest;
@@ -19,27 +21,27 @@ public class BrandsController {
     private final BrandService brandService;
 
     @GetMapping
-    public List<GetBrandListResponse> getAll(){
+    public DataResult<List<GetBrandListResponse>> getAll(){
         return brandService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetBrandResponse getById(@PathVariable int id){
+    public DataResult<GetBrandResponse> getById(@PathVariable int id){
         return brandService.getById(id);
     }
 
     @PostMapping
-    public void add(@RequestBody @Valid AddBrandRequest request){
-        brandService.add(request);
+    public Result add(@RequestBody @Valid AddBrandRequest request){
+        return brandService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateBrandRequest request){
-        brandService.update(request);
+    public Result update(@RequestBody UpdateBrandRequest request){
+        return brandService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        brandService.delete(id);
+    public Result delete(@PathVariable int id){
+       return brandService.delete(id);
     }
 }

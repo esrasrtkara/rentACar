@@ -1,9 +1,14 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
+import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Brand;
 import com.rentACar.rentACar.repositories.BrandRepository;
 import com.rentACar.rentACar.services.abstracts.BrandService;
+import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Brand.AddBrandRequest;
 import com.rentACar.rentACar.services.dtos.requests.Brand.UpdateBrandRequest;
 import com.rentACar.rentACar.services.dtos.responses.Brand.GetBrandListResponse;
@@ -24,40 +29,43 @@ public class BrandManager implements BrandService {
     private final BrandBusinessRules brandBusinessRules;
 
     @Override
-    public List<GetBrandListResponse> getAll() {
+    public DataResult<List<GetBrandListResponse>> getAll() {
         List<Brand> brands = brandRepository.findAll();
         List<GetBrandListResponse> responses = brands.stream().map(brand -> modelMapperService.forResponse()
                 .map(brand, GetBrandListResponse.class)).collect(Collectors.toList());
-        return responses;
+        return new SuccessDataResult<List<GetBrandListResponse>>(responses);
     }
 
     @Override
-    public GetBrandResponse getById(int id) {
+    public DataResult<GetBrandResponse> getById(int id) {
         Brand brand = brandRepository.findById(id).orElseThrow();
         GetBrandResponse response = this.modelMapperService.forResponse().map(brand, GetBrandResponse.class);
-        return response;
+        return new SuccessDataResult<GetBrandResponse>(response);
     }
 
     @Override
-    public void add(AddBrandRequest request) {
+    public Result add(AddBrandRequest request) {
         this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
         brand.setName(request.getName().toUpperCase());
         brandRepository.save(brand);
+        return new SuccessResult(Messages.ADDED_BRAND);
     }
 
     @Override
-    public void update(UpdateBrandRequest request) {
+    public Result update(UpdateBrandRequest request) {
         this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
         brand.setName(request.getName().toUpperCase());
         brandRepository.save(brand);
+        return new SuccessResult(Messages.UPDATED_BRAND);
     }
 
     @Override
-    public void delete(int id) {
+    public Result delete(int id) {
         Brand brandToDelete = brandRepository.findById(id).orElseThrow();
         brandRepository.delete(brandToDelete);
+        return new SuccessResult(Messages.DELETED_BRAND);
     }
 
     @Override
