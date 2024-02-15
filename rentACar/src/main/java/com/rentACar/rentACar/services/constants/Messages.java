@@ -21,4 +21,10 @@ public class Messages {
     public static String CHECK_IF_25_DAY ="A vehicle can be rented for a maximum of 25 days.";
     public static String CHECK_IF_END_DATE_FOR_STARTDATE ="The end date cannot be later than the start date.";
 
+
+
+    public static String ADDED_BRAND = "Brand added.";
+    public static String UPDATED_BRAND = "Brand updated.";
+    public static String DELETED_BRAND = "Brand deleted";
+
 }

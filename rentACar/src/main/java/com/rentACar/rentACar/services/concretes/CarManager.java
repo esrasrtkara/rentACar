@@ -121,15 +121,15 @@ public class CarManager implements CarService {
         return car.getCarStatus().name();
     }
 
-    @Override
-    public Car rateCar(int carId, short minFindeksRate) {
+
+   /* public Car rateCar(int carId, short minFindeksRate) {
         Car car = carRepository.findById(carId).orElseThrow(()->new RuntimeException(Messages.CHECK_IF_CAR_ID));
         short currentRating  = car.getMinFindeksRate();
         int numOfRaiting = carRepository.countRatings(carId);
         short newRating = (short) ((currentRating * numOfRaiting + minFindeksRate)/(numOfRaiting+1));
         car.setMinFindeksRate(newRating);
         return carRepository.save(car);
-    }
+    }*/
 
 
 }

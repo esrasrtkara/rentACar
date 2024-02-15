@@ -11,6 +11,6 @@ public class ErrorDataResult<T> extends  DataResult<T> {
         super(null, false, message);
     }
     public ErrorDataResult() {
-        super(null, false, );
+        super(null, false );
     }
 }

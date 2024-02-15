@@ -29,7 +29,7 @@ public interface CarService {
 
     String carStatus(int id);
 
-    Car rateCar(int id, short minFindeksRate);
+
 
 }
 
