@@ -31,4 +31,8 @@ public class Messages {
     public static String UPDATED_COLOR ="Color updated";
     public static String DELETED_COLOR ="Color deleted";
 
+    public static String ADDED_MODEL ="Model added.";
+    public static String UPDATED_MODEL ="Model updated.";
+    public static String DELETED_MODEL ="Model deleted";
+
 }
