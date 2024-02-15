@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.services.abstracts;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.entities.concretes.Discount;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddDiscountRequest;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddUserDiscountRequest;
@@ -12,11 +14,11 @@ import java.util.Optional;
 
 public interface DiscountService {
 
-    public List<GetDiscountListResponse> getAll();
-    public GetDiscountByIdResponse getById(int id);
-    public void add(AddDiscountRequest request);
-    public void update(UpdateDiscountRequest request);
-    public void delete(int id);
+    public DataResult<List<GetDiscountListResponse>> getAll();
+    public DataResult<GetDiscountByIdResponse> getById(int id);
+    public Result add(AddDiscountRequest request);
+    public Result update(UpdateDiscountRequest request);
+    public Result delete(int id);
 
 
 }

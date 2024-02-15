@@ -54,4 +54,8 @@ public class Messages {
     public static String UPDATED_CUSTOMER="Customer updated";
     public static String DELETED_CUSTOMER="Customer deleted";
 
+    public static String ADDED_DISCOUNT="Discount added";
+    public static String UPDATED_DISCOUNT="Discount updated";
+    public static String DELETED_DISCOUNT="Discount deleted";
+
 }
