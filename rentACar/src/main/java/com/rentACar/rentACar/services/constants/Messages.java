@@ -51,4 +51,7 @@ public class Messages {
     public static String DELETED_CORPORATE_CUSTOMER="Corporate customer deleted";
     public static String UPDATED_CORPORATE_CUSTOMER="Corporate customer updated";
 
+    public static String UPDATED_CUSTOMER="Customer updated";
+    public static String DELETED_CUSTOMER="Customer deleted";
+
 }
