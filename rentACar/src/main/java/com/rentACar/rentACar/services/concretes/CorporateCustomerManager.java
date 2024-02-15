@@ -1,11 +1,16 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
+import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.CorporateCustomer;
 import com.rentACar.rentACar.entities.concretes.Customer;
 import com.rentACar.rentACar.entities.concretes.Model;
 import com.rentACar.rentACar.repositories.CorporateCustomerRepository;
 import com.rentACar.rentACar.services.abstracts.CorporateCustomerService;
+import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.AddCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.UpdateCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.responses.CorporateCustomer.GetCorporateCustomerListResponse;
@@ -27,41 +32,43 @@ public class CorporateCustomerManager implements CorporateCustomerService {
     private final CorporateCustomerBusinessRules customerBusinessRules;
 
     @Override
-    public List<GetCorporateCustomerListResponse> getAll() {
+    public DataResult<List<GetCorporateCustomerListResponse>> getAll() {
         List<CorporateCustomer> corporateCustomers = corporateCustomerRepository.findAll();
         List<GetCorporateCustomerListResponse> responses = corporateCustomers.stream().map(corporateCustomer -> modelMapperService.forResponse()
                 .map(corporateCustomer, GetCorporateCustomerListResponse.class)).collect(Collectors.toList());
-        return responses;
-
+        return new SuccessDataResult<>(responses);
     }
 
     @Override
-    public GetCorporateCustomerResponse getById(int id) {
+    public DataResult<GetCorporateCustomerResponse> getById(int id) {
         CorporateCustomer corporateCustomer = corporateCustomerRepository.findById(id).orElseThrow();
         GetCorporateCustomerResponse response = this.modelMapperService.forResponse().map(corporateCustomer, GetCorporateCustomerResponse.class);
-        return response;
+        return new SuccessDataResult<>(response);
     }
 
     @Override
-    public void add(AddCorporateCustomerRequest request) {
+    public Result add(AddCorporateCustomerRequest request) {
         customerBusinessRules.checkIfUserId(request.getUserId());
         CorporateCustomer corporateCustomer = modelMapperService.forRequest().map(request,CorporateCustomer.class);
         corporateCustomer.setCompanyName(request.getCompanyName().toUpperCase());
         corporateCustomerRepository.save(corporateCustomer);
+        return new SuccessResult(Messages.ADDED_CORPORATE_CUSTOMER);
     }
 
     @Override
-    public void update(UpdateCorporateCustomerRequest request) {
+    public Result update(UpdateCorporateCustomerRequest request) {
         customerBusinessRules.checkIfUserId(request.getUserId());
         CorporateCustomer corporateCustomer = modelMapperService.forRequest().map(request,CorporateCustomer.class);
         corporateCustomer.setCompanyName(request.getCompanyName().toUpperCase());
         corporateCustomerRepository.save(corporateCustomer);
+        return new SuccessResult(Messages.UPDATED_CORPORATE_CUSTOMER);
     }
 
     @Override
-    public void delete(int id) {
+    public Result delete(int id) {
         CorporateCustomer corporateCustomerToDelete = corporateCustomerRepository.findById(id).orElseThrow();
         corporateCustomerRepository.delete(corporateCustomerToDelete);
+        return new SuccessResult(Messages.DELETED_CORPORATE_CUSTOMER);
 
     }
 }
