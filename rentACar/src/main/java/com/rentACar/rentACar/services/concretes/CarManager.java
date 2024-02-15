@@ -2,6 +2,10 @@ package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.services.CloudinaryService;
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
+import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
@@ -33,22 +37,22 @@ public class CarManager implements CarService {
 
 
     @Override
-    public List<GetCarListResponse> getAll() {
+    public DataResult<List<GetCarListResponse>> getAll() {
         List<Car> cars = carRepository.findAll();
         List<GetCarListResponse> responses = cars.stream().map(car -> modelMapperService.forResponse()
                 .map(car,GetCarListResponse.class)).collect(Collectors.toList());
-        return responses;
+        return new SuccessDataResult<List<GetCarListResponse>>(responses);
     }
 
     @Override
-    public GetCarResponse getById(int id) {
+    public DataResult<GetCarResponse> getById(int id) {
         Car car = carRepository.findById(id).orElseThrow();
         GetCarResponse response = this.modelMapperService.forResponse().map(car,GetCarResponse.class);
-        return response;
+        return new SuccessDataResult<GetCarResponse>(response);
     }
 
     @Override
-    public void add(AddCarRequest request) {
+    public Result add(AddCarRequest request) {
         request.setPlate(request.getPlate().replaceAll("[^a-zA-Z0-9]", ""));
         this.carBusinessRules.checkIfPlateFormat(request.getPlate());
         this.carBusinessRules.checkIfPlateExists(request.getPlate());
@@ -60,10 +64,11 @@ public class CarManager implements CarService {
         Car car = this.modelMapperService.forRequest().map(request,Car.class);
         car.setImagePath(cloudinaryService.uploadFile(request.getFile()));
         carRepository.save(car);
+        return new SuccessResult(Messages.ADDED_CAR);
     }
 
     @Override
-    public void update(UpdateCarRequest request) {
+    public Result update(UpdateCarRequest request) {
         request.setPlate(request.getPlate().replaceAll("[^a-zA-Z0-9]", ""));
 
         this.carBusinessRules.checkIfPlateFormat(request.getPlate());
@@ -76,13 +81,15 @@ public class CarManager implements CarService {
         Car car = this.modelMapperService.forRequest().map(request,Car.class);
         car.setImagePath(cloudinaryService.uploadFile(request.getFile()));
         carRepository.save(car);
+        return new SuccessResult(Messages.UPDATED_CAR);
     }
 
     @Override
     @Transactional
-    public void delete(int id) {
+    public Result delete(int id) {
         Car carToDelete = carRepository.findById(id).orElseThrow();
         carRepository.delete(carToDelete);
+        return new SuccessResult(Messages.DELETED_CAR);
     }
 
     @Override

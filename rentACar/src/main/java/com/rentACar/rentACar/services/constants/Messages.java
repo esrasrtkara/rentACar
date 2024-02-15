@@ -40,4 +40,8 @@ public class Messages {
     public static String LOGIN="Login successful";
     public static String LOGIN_ERROR="Information is Incorrect.";
 
+    public static String ADDED_CAR="Car added.";
+    public static String UPDATED_CAR="Car updated.";
+    public static String DELETED_CAR="Car deleted";
+
 }
