@@ -27,4 +27,8 @@ public class Messages {
     public static String UPDATED_BRAND = "Brand updated.";
     public static String DELETED_BRAND = "Brand deleted";
 
+    public static String ADDED_COLOR ="Color added.";
+    public static String UPDATED_COLOR ="Color updated";
+    public static String DELETED_COLOR ="Color deleted";
+
 }

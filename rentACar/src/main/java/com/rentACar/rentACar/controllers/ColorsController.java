@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.ColorService;
 import com.rentACar.rentACar.services.dtos.requests.Color.AddColorRequest;
 import com.rentACar.rentACar.services.dtos.requests.Color.UpdateColorRequest;
@@ -18,27 +20,27 @@ public class ColorsController {
     private final ColorService colorService;
 
     @GetMapping
-    public List<GetColorListResponse> getAll(){
+    public DataResult<List<GetColorListResponse>> getAll(){
         return colorService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetColorResponse getById(@PathVariable int id){
+    public DataResult<GetColorResponse> getById(@PathVariable int id){
         return colorService.getById(id);
     }
 
     @PostMapping
-    public void add(@RequestBody @Valid AddColorRequest request){
-        colorService.add(request);
+    public Result add(@RequestBody @Valid AddColorRequest request){
+        return colorService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateColorRequest request){
-        colorService.update(request);
+    public Result update(@RequestBody UpdateColorRequest request){
+        return colorService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        colorService.delete(id);
+    public Result delete(@PathVariable int id){
+        return colorService.delete(id);
     }
 }
