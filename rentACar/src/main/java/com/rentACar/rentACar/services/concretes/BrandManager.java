@@ -32,17 +32,17 @@ public class BrandManager implements BrandService {
 
     @Override
     public DataResult<List<GetBrandListResponse>> getAll() {
-        List<Brand> brands = brandRepository.findAll();
+        List<Brand> brands = brandRepository.findByDeletedFalse();
         List<GetBrandListResponse> responses = brands.stream().map(brand -> modelMapperService.forResponse()
                 .map(brand, GetBrandListResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetBrandListResponse>>(responses);
+        return new SuccessDataResult<>(responses);
     }
 
     @Override
     public DataResult<GetBrandResponse> getById(int id) {
         Brand brand = brandRepository.findById(id).orElseThrow();
         GetBrandResponse response = this.modelMapperService.forResponse().map(brand, GetBrandResponse.class);
-        return new SuccessDataResult<GetBrandResponse>(response);
+        return new SuccessDataResult<>(response);
     }
 
     @Override
@@ -68,7 +68,11 @@ public class BrandManager implements BrandService {
     @Override
     public Result delete(int id) {
         Brand brandToDelete = brandRepository.findById(id).orElseThrow();
+        brandBusinessRules.modelDeleted(brandToDelete);
+
+        brandRepository.save(brandToDelete);
         brandRepository.delete(brandToDelete);
+
         return new SuccessResult(Messages.DELETED_BRAND);
     }
 
