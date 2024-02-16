@@ -65,4 +65,8 @@ public class Messages {
     public static String UPDATED_RENTAL="Rental updated.";
     public static String DELETED_RENTAL="Rental deleted.";
 
+    public static String ADDED_TAX_RATE="TaxRate added.";
+    public static String UPDATED_TAX_RATE ="TaxRate updated.";
+    public static String DELETED_TAX_RATE="TaxRate deleted.";
+
 }
