@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.entities.concretes.Rental;
 import com.rentACar.rentACar.services.abstracts.RentalService;
 import com.rentACar.rentACar.services.dtos.requests.Rental.AddRentalRequest;
@@ -24,12 +26,12 @@ public class RentalsController {
 
 
     @GetMapping
-    public List<GetRentalListResponse> getAll(){
+    public DataResult<List<GetRentalListResponse>> getAll(){
         return rentalService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetRentalResponse getById(@PathVariable int id){
+    public DataResult<GetRentalResponse> getById(@PathVariable int id){
         return rentalService.getById(id);
     }
 
@@ -39,18 +41,18 @@ public class RentalsController {
     }
 
     @PostMapping
-    public GetRentalResponse add(@RequestBody @Valid AddRentalRequest request){
+    public DataResult<GetRentalResponse> add(@RequestBody @Valid AddRentalRequest request){
        return rentalService.add(request);
     }
 
 
     @PutMapping
-    public void update(@RequestBody UpdateRentalRequest request){
-        rentalService.update(request);
+    public Result update(@RequestBody UpdateRentalRequest request){
+        return rentalService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        rentalService.delete(id);
+    public Result delete(@PathVariable int id){
+        return rentalService.delete(id);
     }
 }

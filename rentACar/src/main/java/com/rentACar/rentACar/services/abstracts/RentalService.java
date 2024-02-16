@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.services.abstracts;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.entities.concretes.Rental;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddUserDiscountRequest;
@@ -14,11 +16,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RentalService {
-    List<GetRentalListResponse> getAll();
-    GetRentalResponse getById(int id);
-    GetRentalResponse add(AddRentalRequest request);
-    void update(UpdateRentalRequest request);
-    void delete(int id);
+    DataResult<List<GetRentalListResponse>> getAll();
+    DataResult<GetRentalResponse> getById(int id);
+    DataResult<GetRentalResponse> add(AddRentalRequest request);
+    Result update(UpdateRentalRequest request);
+    Result delete(int id);
     public boolean controlRentalId(int id);
 
     public GetCarFilterResponse carFilter(CarFilterRequest request);
