@@ -1,5 +1,6 @@
 package com.rentACar.rentACar.services.concretes;
 
+import com.rentACar.rentACar.core.services.CloudinaryService;
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
@@ -27,20 +28,21 @@ public class BrandManager implements BrandService {
     private final BrandRepository brandRepository;
     private final ModelMapperService modelMapperService;
     private final BrandBusinessRules brandBusinessRules;
+    private final CloudinaryService cloudinaryService;
 
     @Override
     public DataResult<List<GetBrandListResponse>> getAll() {
-        List<Brand> brands = brandRepository.findAll();
+        List<Brand> brands = brandRepository.findByDeletedFalse();
         List<GetBrandListResponse> responses = brands.stream().map(brand -> modelMapperService.forResponse()
                 .map(brand, GetBrandListResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetBrandListResponse>>(responses);
+        return new SuccessDataResult<>(responses);
     }
 
     @Override
     public DataResult<GetBrandResponse> getById(int id) {
         Brand brand = brandRepository.findById(id).orElseThrow();
         GetBrandResponse response = this.modelMapperService.forResponse().map(brand, GetBrandResponse.class);
-        return new SuccessDataResult<GetBrandResponse>(response);
+        return new SuccessDataResult<>(response);
     }
 
     @Override
@@ -48,6 +50,7 @@ public class BrandManager implements BrandService {
         this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
         brand.setName(request.getName().toUpperCase());
+        brand.setLogoPath(cloudinaryService.uploadFile(request.getLogoPath()));
         brandRepository.save(brand);
         return new SuccessResult(Messages.ADDED_BRAND);
     }
@@ -57,6 +60,7 @@ public class BrandManager implements BrandService {
         this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
         brand.setName(request.getName().toUpperCase());
+        brand.setLogoPath(cloudinaryService.uploadFile(request.getLogoPath()));
         brandRepository.save(brand);
         return new SuccessResult(Messages.UPDATED_BRAND);
     }
@@ -64,7 +68,11 @@ public class BrandManager implements BrandService {
     @Override
     public Result delete(int id) {
         Brand brandToDelete = brandRepository.findById(id).orElseThrow();
+        brandBusinessRules.modelDeleted(brandToDelete);
+
+        brandRepository.save(brandToDelete);
         brandRepository.delete(brandToDelete);
+
         return new SuccessResult(Messages.DELETED_BRAND);
     }
 

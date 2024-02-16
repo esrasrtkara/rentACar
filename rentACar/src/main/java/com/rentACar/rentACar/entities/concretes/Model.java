@@ -18,6 +18,8 @@ public class Model extends BaseEntity {
 
     @Column(name = "name")
     private String name;
+    @Column(name = "deleted")
+    private Boolean deleted;
 
     @OneToMany(mappedBy = "model")
     private List<Car> cars;

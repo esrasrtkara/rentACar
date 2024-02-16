@@ -34,6 +34,8 @@ public class Car extends BaseEntity {
     private int trunkVolume;
     @Column(name = "capacity")
     private int capacity;
+    @Column(name = "deleted")
+    private Boolean deleted;
 
 
 
