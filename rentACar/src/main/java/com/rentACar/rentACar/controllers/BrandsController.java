@@ -9,12 +9,13 @@ import com.rentACar.rentACar.services.dtos.responses.Brand.GetBrandListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Brand.GetBrandResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/brands")
+@RequestMapping("/api/brands")
 @AllArgsConstructor
 public class BrandsController {
 
@@ -31,16 +32,19 @@ public class BrandsController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddBrandRequest request){
         return brandService.add(request);
     }
 
     @PutMapping
-    public Result update(@RequestBody UpdateBrandRequest request){
+    @ResponseStatus(HttpStatus.OK)
+    public Result update(@RequestBody @Valid UpdateBrandRequest request){
         return brandService.update(request);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable int id){
        return brandService.delete(id);
     }

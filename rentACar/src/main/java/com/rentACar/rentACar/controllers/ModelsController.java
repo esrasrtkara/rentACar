@@ -9,13 +9,15 @@ import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/models")
+@RequestMapping("/api/models")
 @AllArgsConstructor
+@CrossOrigin
 public class ModelsController {
 
     private final ModelService modelService;
@@ -25,22 +27,25 @@ public class ModelsController {
     return modelService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public DataResult<GetModelResponse> getById(@PathVariable int id){
         return modelService.getById(id);
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddModelRequest request){
         return modelService.add(request);
     }
 
     @PutMapping
-    public Result update(@RequestBody UpdateModelRequest request){
+    @ResponseStatus(HttpStatus.OK)
+    public Result update(@RequestBody @Valid UpdateModelRequest request){
         return modelService.update(request);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable int id){
         return modelService.delete(id);
     }
