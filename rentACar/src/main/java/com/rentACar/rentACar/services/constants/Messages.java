@@ -69,4 +69,8 @@ public class Messages {
     public static String UPDATED_TAX_RATE ="TaxRate updated.";
     public static String DELETED_TAX_RATE="TaxRate deleted.";
 
+    public static String ADDED_USER ="User added.";
+    public static String UPDATED_USER="User updated.";
+    public static String DELETED_USER="User deleted.";
+
 }
