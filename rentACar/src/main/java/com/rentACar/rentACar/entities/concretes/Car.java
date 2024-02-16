@@ -34,8 +34,7 @@ public class Car extends BaseEntity {
     private int trunkVolume;
     @Column(name = "capacity")
     private int capacity;
-    @Column(name = "deleted")
-    private Boolean deleted;
+
 
 
 
@@ -53,7 +52,7 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "tax_rate_id")
     private TaxRate taxRate;
 
-    @OneToMany(mappedBy = "car",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
     private List<Rental> rentals;
 
 

@@ -9,16 +9,12 @@ import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
-import com.rentACar.rentACar.services.abstracts.ColorService;
-import com.rentACar.rentACar.services.abstracts.DiscountService;
-import com.rentACar.rentACar.services.abstracts.ModelService;
 import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import com.rentACar.rentACar.services.rules.CarBusinessRules;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,17 +34,17 @@ public class CarManager implements CarService {
 
     @Override
     public DataResult<List<GetCarListResponse>> getAll() {
-        List<Car> cars = carRepository.findAll();
+        List<Car> cars = carRepository.findByDeletedFalse();
         List<GetCarListResponse> responses = cars.stream().map(car -> modelMapperService.forResponse()
                 .map(car,GetCarListResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetCarListResponse>>(responses);
+        return new SuccessDataResult<>(responses);
     }
 
     @Override
     public DataResult<GetCarResponse> getById(int id) {
         Car car = carRepository.findById(id).orElseThrow();
         GetCarResponse response = this.modelMapperService.forResponse().map(car,GetCarResponse.class);
-        return new SuccessDataResult<GetCarResponse>(response);
+        return new SuccessDataResult<>(response);
     }
 
     @Override
@@ -85,10 +81,10 @@ public class CarManager implements CarService {
     }
 
     @Override
-    @Transactional
     public Result delete(int id) {
         Car carToDelete = carRepository.findById(id).orElseThrow();
-        carRepository.delete(carToDelete);
+        carBusinessRules.deletedRental(carToDelete);
+        carRepository.save(carToDelete);
         return new SuccessResult(Messages.DELETED_CAR);
     }
 

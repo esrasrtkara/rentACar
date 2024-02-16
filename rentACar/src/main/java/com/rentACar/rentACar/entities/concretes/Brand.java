@@ -20,10 +20,8 @@ public class Brand extends BaseEntity {
     private String name;
     @Column(name = "logo_path")
     private String logoPath;
-    @Column(name = "deleted")
-    private Boolean deleted;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand",cascade = CascadeType.ALL)
     private List<Model> models;
 
 

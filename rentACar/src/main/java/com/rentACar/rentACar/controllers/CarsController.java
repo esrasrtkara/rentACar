@@ -9,12 +9,13 @@ import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/cars")
+@RequestMapping("/api/cars")
 @AllArgsConstructor
 @CrossOrigin
 public class CarsController {
@@ -25,22 +26,25 @@ public class CarsController {
         return carService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public DataResult<GetCarResponse> getById(@PathVariable int id){
         return carService.getById(id);
     }
 
     @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
     public Result add(@ModelAttribute @Valid AddCarRequest request){
         return carService.add(request);
     }
 
     @PutMapping
+    @ResponseStatus(code = HttpStatus.OK)
     public Result update(@ModelAttribute @Valid UpdateCarRequest request){
         return carService.update(request);
     }
 
     @DeleteMapping("{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public Result delete(@PathVariable int id){
         return carService.delete(id);
     }
