@@ -69,9 +69,7 @@ public class BrandManager implements BrandService {
     public Result delete(int id) {
         Brand brandToDelete = brandRepository.findById(id).orElseThrow();
         brandBusinessRules.modelDeleted(brandToDelete);
-
         brandRepository.save(brandToDelete);
-        brandRepository.delete(brandToDelete);
 
         return new SuccessResult(Messages.DELETED_BRAND);
     }

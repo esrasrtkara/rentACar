@@ -32,18 +32,18 @@ public class ModelManager implements ModelService {
 
     @Override
     public DataResult<List<GetModelListResponse>> getAll() {
-        List<Model> models = modelRepository.findAll();
+        List<Model> models = modelRepository.findByDeletedFalse();
         List<GetModelListResponse> responses = models.stream()
                 .map(model -> modelMapperService.forResponse()
                         .map(model,GetModelListResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetModelListResponse>>(responses);
+        return new SuccessDataResult<>(responses);
     }
 
     @Override
     public DataResult<GetModelResponse> getById(int id) {
         Model model = modelRepository.findById(id).orElseThrow();
         GetModelResponse response = this.modelMapperService.forResponse().map(model, GetModelResponse.class);
-        return new SuccessDataResult<GetModelResponse>(response);
+        return new SuccessDataResult<>(response);
     }
 
     @Override
@@ -71,7 +71,8 @@ public class ModelManager implements ModelService {
     @Override
     public Result delete(int id) {
         Model modelToDelete = modelRepository.findById(id).orElseThrow();
-        modelRepository.delete(modelToDelete);
+        modelBusinessRules.CarDeleted(modelToDelete);
+        modelRepository.save(modelToDelete);
         return new SuccessResult(Messages.DELETED_MODEL);
     }
 
