@@ -1,5 +1,6 @@
 package com.rentACar.rentACar.services.concretes;
 
+import com.rentACar.rentACar.core.services.CloudinaryService;
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
@@ -27,6 +28,7 @@ public class BrandManager implements BrandService {
     private final BrandRepository brandRepository;
     private final ModelMapperService modelMapperService;
     private final BrandBusinessRules brandBusinessRules;
+    private final CloudinaryService cloudinaryService;
 
     @Override
     public DataResult<List<GetBrandListResponse>> getAll() {
@@ -48,6 +50,7 @@ public class BrandManager implements BrandService {
         this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
         brand.setName(request.getName().toUpperCase());
+        brand.setLogoPath(cloudinaryService.uploadFile(request.getLogoPath()));
         brandRepository.save(brand);
         return new SuccessResult(Messages.ADDED_BRAND);
     }
@@ -57,6 +60,7 @@ public class BrandManager implements BrandService {
         this.brandBusinessRules.checkIfBrandNameExist(request.getName());
         Brand brand = modelMapperService.forRequest().map(request, Brand.class);
         brand.setName(request.getName().toUpperCase());
+        brand.setLogoPath(cloudinaryService.uploadFile(request.getLogoPath()));
         brandRepository.save(brand);
         return new SuccessResult(Messages.UPDATED_BRAND);
     }
