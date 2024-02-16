@@ -1,11 +1,16 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
+import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.User;
 import com.rentACar.rentACar.repositories.UserRepository;
 import com.rentACar.rentACar.services.abstracts.CustomerService;
 import com.rentACar.rentACar.services.abstracts.RentalService;
 import com.rentACar.rentACar.services.abstracts.UserService;
+import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.User.AddUserRequest;
 import com.rentACar.rentACar.services.dtos.requests.User.UpdateUserRequest;
@@ -34,30 +39,31 @@ public class UserManager implements UserService {
 
 
     @Override
-    public List<GetUserListResponse> getAll() {
+    public DataResult<List<GetUserListResponse>> getAll() {
         List<User> users = userRepository.findAll();
         List<GetUserListResponse> responses = users.stream().map(user -> modelMapperService.forResponse()
                 .map(user, GetUserListResponse.class)).collect(Collectors.toList());
-        return responses;
+        return new SuccessDataResult<>(responses);
     }
 
     @Override
-    public GetUserResponse getById(int id) {
+    public DataResult<GetUserResponse> getById(int id) {
         User user = userRepository.findById(id).orElseThrow();
         GetUserResponse response = this.modelMapperService.forResponse().map(user ,GetUserResponse.class);
-        return response;
+        return new SuccessDataResult<>(response);
     }
 
     @Override
-    public void add(AddUserRequest request) {
+    public Result add(AddUserRequest request) {
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword())).build();
         userRepository.save(user);
+        return new SuccessResult(Messages.ADDED_USER);
     }
 
     @Override
-    public void update(UpdateUserRequest request) {
+    public Result update(UpdateUserRequest request) {
       //  User user = modelMapperService.forRequest().map(request, User.class);
         //userRepository.save(user);
         User user = User.builder()
@@ -65,12 +71,14 @@ public class UserManager implements UserService {
                 .password(passwordEncoder.encode(request.getPassword())).build();
                 user.setId(request.getId());
         userRepository.save(user);
+        return new SuccessResult(Messages.UPDATED_USER);
     }
 
     @Override
-    public void delete(int id) {
+    public Result delete(int id) {
         User userToDelete = userRepository.findById(id).orElseThrow();
         userRepository.delete(userToDelete);
+        return new SuccessResult(Messages.DELETED_USER);
     }
 
     @Override

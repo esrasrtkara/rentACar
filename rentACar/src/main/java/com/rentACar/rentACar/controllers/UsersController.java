@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.UserService;
 import com.rentACar.rentACar.services.dtos.requests.User.AddUserRequest;
 import com.rentACar.rentACar.services.dtos.requests.User.UpdateUserRequest;
@@ -21,28 +23,28 @@ public class UsersController {
 
 
     @GetMapping
-    public List<GetUserListResponse> getAll(){
+    public DataResult<List<GetUserListResponse>> getAll(){
         return userService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetUserResponse getById(@PathVariable int id){
+    public DataResult<GetUserResponse> getById(@PathVariable int id){
         return userService.getById(id);
     }
 
     @PostMapping
-    public void add(@RequestBody AddUserRequest request){
-        userService.add(request);
+    public Result add(@RequestBody AddUserRequest request){
+        return userService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateUserRequest request){
-        userService.update(request);
+    public Result update(@RequestBody UpdateUserRequest request){
+        return userService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        userService.delete(id);
+    public Result delete(@PathVariable int id){
+        return userService.delete(id);
     }
 
 
