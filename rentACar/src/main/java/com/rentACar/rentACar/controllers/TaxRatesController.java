@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.TaxRateService;
 import com.rentACar.rentACar.services.dtos.requests.TaxRate.AddTaxRateRequest;
 import com.rentACar.rentACar.services.dtos.requests.TaxRate.UpdateTaxRateRequest;
@@ -13,27 +15,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tax_rates")
 @AllArgsConstructor
-public class TaxRateController {
+public class TaxRatesController {
     private final TaxRateService taxRateService;
 
     @GetMapping
-    public List<GetTaxRateListResponse> getAll(){
+    public DataResult<List<GetTaxRateListResponse>> getAll(){
         return taxRateService.getAll();
     }
     @GetMapping("{id}")
-    public GetTaxRateByIdResponse getById(@RequestParam int id){
+    public DataResult<GetTaxRateByIdResponse> getById(@RequestParam int id){
         return taxRateService.getById(id);
     }
     @PostMapping
-    public void add(AddTaxRateRequest request){
-        taxRateService.add(request);
+    public Result add(AddTaxRateRequest request){
+        return taxRateService.add(request);
     }
     @PutMapping
-    public void update(UpdateTaxRateRequest request){
-        taxRateService.update(request);
+    public Result update(UpdateTaxRateRequest request){
+        return taxRateService.update(request);
     }
     @DeleteMapping
-    public void delete(int id){
-        taxRateService.delete(id);
+    public Result delete(int id){
+        return taxRateService.delete(id);
     }
 }
