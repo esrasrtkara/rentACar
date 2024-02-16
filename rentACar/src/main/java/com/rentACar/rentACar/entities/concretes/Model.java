@@ -18,10 +18,8 @@ public class Model extends BaseEntity {
 
     @Column(name = "name")
     private String name;
-    @Column(name = "deleted")
-    private Boolean deleted;
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany(mappedBy = "model",cascade = CascadeType.ALL)
     private List<Car> cars;
 
     @ManyToOne
