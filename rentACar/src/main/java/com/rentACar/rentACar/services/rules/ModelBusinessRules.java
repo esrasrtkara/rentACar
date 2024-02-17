@@ -28,8 +28,6 @@ public class ModelBusinessRules {
             throw new RuntimeException(Messages.BRAND_ID_NOT_FOUND);
         }
     }
-<<<<<<< HEAD
-=======
 
     public void CarDeleted(Model model){
         model.setDeleted(true);
@@ -37,8 +35,4 @@ public class ModelBusinessRules {
         model.getCars().forEach(car -> {
             car.setDeleted(model.getDeleted());
         });
-    }
-
-
->>>>>>> main
-}
+    }}
