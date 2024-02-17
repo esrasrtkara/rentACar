@@ -19,8 +19,11 @@ public abstract class BaseEntity {
     @Column(name = "updated_date",nullable = true)
     private LocalDate updatedDate;
 
+    @Column(name = "deleted")
+    private Boolean deleted;
+
     @PrePersist
-    private void beforedAdd(){
+    private void beforeAdd(){
         createDate = LocalDate.now();
     }
     @PreUpdate

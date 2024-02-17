@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.LineNumberInputStream;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "rentals")
@@ -31,8 +33,6 @@ public class Rental extends BaseEntity {
     @Column(name = "end_kilometer")
     private int endKilometer;
 
-
-
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
@@ -40,4 +40,7 @@ public class Rental extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "rental",cascade = CascadeType.REMOVE)
+    private List<Invoice> invoices;
 }

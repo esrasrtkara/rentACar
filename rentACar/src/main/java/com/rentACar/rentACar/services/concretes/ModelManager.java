@@ -1,10 +1,15 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.utilities.mappers.services.ModelMapperService;
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
+import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Model;
 import com.rentACar.rentACar.repositories.ModelRepository;
 import com.rentACar.rentACar.services.abstracts.BrandService;
 import com.rentACar.rentACar.services.abstracts.ModelService;
+import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Model.AddModelRequest;
 import com.rentACar.rentACar.services.dtos.requests.Model.UpdateModelRequest;
 import com.rentACar.rentACar.services.dtos.responses.Model.GetModelListResponse;
@@ -26,40 +31,49 @@ public class ModelManager implements ModelService {
 
 
     @Override
-    public List<GetModelListResponse> getAll() {
-        List<Model> models = modelRepository.findAll();
+    public DataResult<List<GetModelListResponse>> getAll() {
+        List<Model> models = modelRepository.findByDeletedFalse();
         List<GetModelListResponse> responses = models.stream()
                 .map(model -> modelMapperService.forResponse()
                         .map(model,GetModelListResponse.class)).collect(Collectors.toList());
-        return responses;
+        return new SuccessDataResult<>(responses);
     }
 
     @Override
-    public GetModelResponse getById(int id) {
+    public DataResult<GetModelResponse> getById(int id) {
         Model model = modelRepository.findById(id).orElseThrow();
         GetModelResponse response = this.modelMapperService.forResponse().map(model, GetModelResponse.class);
-        return response;
+        return new SuccessDataResult<>(response);
     }
 
     @Override
-    public void add(AddModelRequest request) {
+    public Result add(AddModelRequest request) {
         this.modelBusinessRules.checkIfModelNameExists(request.getName());
         this.modelBusinessRules.checkIfBrandId(request.getBrandId());
 
         Model model = this.modelMapperService.forRequest().map(request, Model.class);
+        model.setName(request.getName().toUpperCase());
         modelRepository.save(model);
+        return new SuccessResult(Messages.ADDED_MODEL);
     }
 
     @Override
-    public void update(UpdateModelRequest request) {
+    public Result update(UpdateModelRequest request) {
+        this.modelBusinessRules.checkIfModelNameExists(request.getName());
+        this.modelBusinessRules.checkIfBrandId(request.getBrandId());
+
         Model model = this.modelMapperService.forRequest().map(request, Model.class);
+        model.setName(request.getName().toUpperCase());
         modelRepository.save(model);
+        return new SuccessResult(Messages.UPDATED_MODEL);
     }
 
     @Override
-    public void delete(int id) {
+    public Result delete(int id) {
         Model modelToDelete = modelRepository.findById(id).orElseThrow();
-        modelRepository.delete(modelToDelete);
+        modelBusinessRules.CarDeleted(modelToDelete);
+        modelRepository.save(modelToDelete);
+        return new SuccessResult(Messages.DELETED_MODEL);
     }
 
     @Override

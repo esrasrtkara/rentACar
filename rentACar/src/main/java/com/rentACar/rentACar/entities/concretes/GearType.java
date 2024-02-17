@@ -1,23 +1,14 @@
 package com.rentACar.rentACar.entities.concretes;
 
-import com.rentACar.rentACar.entities.abstracts.BaseEntity;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-@Entity
-@Table(name = "gear_types")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class GearType extends BaseEntity {
-    @Column(name = "name")
-    private String name;
-
-    @OneToMany(mappedBy = "gearType")
-    private List<Car> cars;
+public enum GearType  {
+    AUTOMATIC,
+    MANUAL;
+    @Contract(pure = true)
+    public @NotNull String getGearType(){
+        return name();
+    }
 
 }

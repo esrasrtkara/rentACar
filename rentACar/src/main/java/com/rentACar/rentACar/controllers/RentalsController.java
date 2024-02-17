@@ -1,10 +1,16 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.entities.concretes.Rental;
 import com.rentACar.rentACar.services.abstracts.RentalService;
 import com.rentACar.rentACar.services.dtos.requests.Rental.AddRentalRequest;
+import com.rentACar.rentACar.services.dtos.requests.Rental.CarFilterRequest;
 import com.rentACar.rentACar.services.dtos.requests.Rental.UpdateRentalRequest;
+import com.rentACar.rentACar.services.dtos.responses.Rental.GetCarFilterResponse;
 import com.rentACar.rentACar.services.dtos.responses.Rental.GetRentalListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Rental.GetRentalResponse;
+import com.stripe.model.Charge;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,33 +18,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/rentals")
+@RequestMapping("/api/rentals")
 @AllArgsConstructor
+@CrossOrigin
 public class RentalsController {
     private final RentalService rentalService;
 
+
     @GetMapping
-    public List<GetRentalListResponse> getAll(){
+    public DataResult<List<GetRentalListResponse>> getAll(){
         return rentalService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetRentalResponse getById(@PathVariable int id){
+    public DataResult<GetRentalResponse> getById(@PathVariable int id){
         return rentalService.getById(id);
     }
 
-    @PostMapping
-    public void add(@RequestBody @Valid AddRentalRequest request){
-        rentalService.add(request);
+    @GetMapping("filter")
+    public GetCarFilterResponse carFilter(CarFilterRequest request){
+        return rentalService.carFilter(request);
     }
 
+    @PostMapping
+    public DataResult<GetRentalResponse> add(@RequestBody @Valid AddRentalRequest request){
+       return rentalService.add(request);
+    }
+
+
     @PutMapping
-    public void update(@RequestBody UpdateRentalRequest request){
-        rentalService.update(request);
+    public Result update(@RequestBody UpdateRentalRequest request){
+        return rentalService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        rentalService.delete(id);
+    public Result delete(@PathVariable int id){
+        return rentalService.delete(id);
     }
 }

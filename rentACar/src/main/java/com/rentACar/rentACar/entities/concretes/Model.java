@@ -19,7 +19,7 @@ public class Model extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany(mappedBy = "model",cascade = CascadeType.ALL)
     private List<Car> cars;
 
     @ManyToOne
