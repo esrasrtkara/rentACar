@@ -37,6 +37,7 @@ public class Car extends BaseEntity {
 
 
 
+
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
@@ -45,7 +46,13 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "color_id")
     private Color color;
 
-    @OneToMany(mappedBy = "car",cascade = CascadeType.REMOVE)
+
+
+    @ManyToOne
+    @JoinColumn(name = "tax_rate_id")
+    private TaxRate taxRate;
+
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
     private List<Rental> rentals;
 
 
@@ -60,5 +67,9 @@ public class Car extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name="gear_type")
     private GearType gearType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "car_status")
+    private CarStatus carStatus;
 
 }

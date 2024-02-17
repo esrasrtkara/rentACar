@@ -1,6 +1,9 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.InvoiceService;
+import com.rentACar.rentACar.services.dtos.requests.Invoice.AddInvoiceRequest;
 import com.rentACar.rentACar.services.dtos.requests.Invoice.UpdateInvoiceRequest;
 import com.rentACar.rentACar.services.dtos.responses.Invoice.GetInvoiceListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Invoice.GetInvoiceResponse;
@@ -16,23 +19,27 @@ import java.util.List;
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
-    @GetMapping("getall")
-    List<GetInvoiceListResponse> getAll(){
+    @GetMapping()
+    DataResult<List<GetInvoiceListResponse>> getAll(){
         return invoiceService.getAll();
     }
     @GetMapping("{id}")
-    GetInvoiceResponse getById(@PathVariable int id){
+    DataResult<GetInvoiceResponse> getById(@PathVariable int id){
         return invoiceService.getById(id);
     }
+    @PostMapping
+    Result add(@RequestBody AddInvoiceRequest request){
+        return invoiceService.add(request);
+    }
     @PutMapping
-    void update(@RequestBody UpdateInvoiceRequest request){
-        invoiceService.update(request);
+    Result update(@RequestBody UpdateInvoiceRequest request){
+        return invoiceService.update(request);
     }
     @DeleteMapping("{id}")
-    void delete(@PathVariable int id){
-        invoiceService.delete(id);
+    Result delete(@PathVariable int id){
+        return invoiceService.delete(id);
     }
-    @GetMapping()
+    @GetMapping("{total}")
     public Float totalPrice( @RequestParam int rentalId){
         return invoiceService.totalPrice(rentalId);
     }

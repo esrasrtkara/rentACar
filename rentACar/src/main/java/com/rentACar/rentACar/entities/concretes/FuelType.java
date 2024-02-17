@@ -1,9 +1,13 @@
 package com.rentACar.rentACar.entities.concretes;
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 public enum FuelType  {
-    GASOLINE,
+    PETROL,
     DIESEL,
-    ELECTRICITY;
+    ELECTRICITY,
+    HYBRİD;
 
    public String getFuelType(){
        return name();

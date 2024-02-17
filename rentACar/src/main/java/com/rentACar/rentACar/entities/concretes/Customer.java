@@ -23,7 +23,9 @@ public class Customer extends BaseEntity {
     private String lastName;
 
 
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 }

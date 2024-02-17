@@ -11,8 +11,6 @@ public class AddRentalRequest {
     private LocalDate startDate;
     private LocalDate endDate;
     @Nullable
-    private LocalDate returnDate;
-    @Nullable
-    private int endKilometer;
+    private String discountCode;
     private int carId;
 }

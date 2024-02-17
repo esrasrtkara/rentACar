@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.CommentService;
 import com.rentACar.rentACar.services.dtos.requests.Comment.AddCommentRequest;
 import com.rentACar.rentACar.services.dtos.requests.Comment.UpdateCommentRequest;
@@ -13,27 +15,27 @@ import java.util.List;
 @RequestMapping("/api/comments")
 @RestController
 @AllArgsConstructor
-public class CommentConroller {
+public class CommentsConroller {
     private final CommentService commentService;
 
     @GetMapping
-    List<GetCommentListResponse> getAll(){
+    DataResult<List<GetCommentListResponse>> getAll(){
         return commentService.getAll();
     }
     @GetMapping("{id}")
-    GetCommentResponse getById(@PathVariable int id){
+    DataResult<GetCommentResponse> getById(@PathVariable int id){
         return commentService.getById(id);
     }
     @PostMapping
-    void add(@RequestBody AddCommentRequest request){
-        commentService.add(request);
+    Result add(@RequestBody AddCommentRequest request){
+        return commentService.add(request);
     }
     @PutMapping
-    void update(@RequestBody UpdateCommentRequest request){
-        commentService.update(request);
+    Result update(@RequestBody UpdateCommentRequest request){
+        return commentService.update(request);
     }
     @DeleteMapping("{id}")
-    void delete(@PathVariable int id){
-        commentService.delete(id);
+    Result delete(@PathVariable int id){
+        return commentService.delete(id);
     }
 }

@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.CustomerService;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Customer.UpdateCustomerRequest;
@@ -19,27 +21,27 @@ public class CustomersController {
     private final CustomerService customerService;
 
     @GetMapping
-    public List<GetCustomerListResponse> getAll(){
+    public DataResult<List<GetCustomerListResponse>> getAll(){
         return customerService.getAll();
     }
 
     @GetMapping("{id}")
-    public GetCustomerResponse getById(@PathVariable int id){
+    public DataResult<GetCustomerResponse> getById(@PathVariable int id){
         return customerService.getById(id);
     }
 
     @PostMapping
-    public void add(@RequestBody @Valid AddCustomerRequest request){
-        customerService.add(request);
+    public Result add(@RequestBody @Valid AddCustomerRequest request){
+        return customerService.add(request);
     }
 
     @PutMapping
-    public void update(@RequestBody UpdateCustomerRequest request){
-        customerService.update(request);
+    public Result update(@RequestBody UpdateCustomerRequest request){
+        return customerService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        customerService.delete(id);
+    public Result delete(@PathVariable int id){
+        return customerService.delete(id);
     }
 }

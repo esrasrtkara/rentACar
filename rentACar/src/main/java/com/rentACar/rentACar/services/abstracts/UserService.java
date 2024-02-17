@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.services.abstracts;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.entities.concretes.User;
 import com.rentACar.rentACar.services.dtos.requests.User.AddUserRequest;
 import com.rentACar.rentACar.services.dtos.requests.User.UpdateUserRequest;
@@ -10,14 +12,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService extends UserDetailsService{
-    List<GetUserListResponse> getAll();
-    GetUserResponse getById(int id);
-    void add(AddUserRequest request);
-    void update(UpdateUserRequest request);
-    void delete(int id);
+    DataResult<List<GetUserListResponse>> getAll();
+    DataResult<GetUserResponse> getById(int id);
+    Result add(AddUserRequest request);
+    Result update(UpdateUserRequest request);
+    Result delete(int id);
     boolean controlUserId(int id);
     void save(User user);
 
     User userEmail(String email);
+
+    public int userId(String email);
 
 }

@@ -1,11 +1,15 @@
 package com.rentACar.rentACar.services.rules;
 
+import com.rentACar.rentACar.entities.concretes.Car;
+import com.rentACar.rentACar.entities.concretes.Rental;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.ColorService;
 import com.rentACar.rentACar.services.abstracts.ModelService;
 import com.rentACar.rentACar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -47,5 +51,15 @@ public class CarBusinessRules {
         if (!colorService.controlColorId(id)) {
             throw new RuntimeException(Messages.CHECK_IF_COLOR_ID);
         }
+    }
+
+    public void deletedRental(Car car){
+        car.setDeleted(true);
+        List<Rental> rentals = car.getRentals();
+        car.getRentals().forEach(rental -> {
+            rental.setDeleted(car.getDeleted());
+            rental.getInvoices().forEach(invoice -> invoice.setDeleted(rental.getDeleted()));
+        });
+
     }
 }

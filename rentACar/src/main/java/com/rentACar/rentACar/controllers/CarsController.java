@@ -1,5 +1,7 @@
 package com.rentACar.rentACar.controllers;
 
+import com.rentACar.rentACar.core.utilities.results.DataResult;
+import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
@@ -7,39 +9,43 @@ import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/cars")
+@RequestMapping("/api/cars")
 @AllArgsConstructor
 @CrossOrigin
 public class CarsController {
     private final CarService carService;
 
     @GetMapping
-    public List<GetCarListResponse> getAll(){
+    public DataResult<List<GetCarListResponse>> getAll(){
         return carService.getAll();
     }
 
-    @GetMapping("{id}")
-    public GetCarResponse getById(@PathVariable int id){
+    @GetMapping("/{id}")
+    public DataResult<GetCarResponse> getById(@PathVariable int id){
         return carService.getById(id);
     }
 
     @PostMapping
-    public void add(@ModelAttribute @Valid AddCarRequest request){
-        carService.add(request);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Result add(@ModelAttribute @Valid AddCarRequest request){
+        return carService.add(request);
     }
 
     @PutMapping
-    public void update(@ModelAttribute @Valid UpdateCarRequest request){
-        carService.update(request);
+    @ResponseStatus(code = HttpStatus.OK)
+    public Result update(@ModelAttribute @Valid UpdateCarRequest request){
+        return carService.update(request);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable int id){
-        carService.delete(id);
+    @ResponseStatus(code = HttpStatus.OK)
+    public Result delete(@PathVariable int id){
+        return carService.delete(id);
     }
 }

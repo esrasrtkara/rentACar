@@ -1,6 +1,5 @@
 package com.rentACar.rentACar.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rentACar.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +20,8 @@ public class Brand extends BaseEntity {
     @Column(name = "logo_path")
     private String logoPath;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand",cascade = CascadeType.ALL)
     private List<Model> models;
+
+
 }

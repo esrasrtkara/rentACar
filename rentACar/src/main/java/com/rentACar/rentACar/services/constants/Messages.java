@@ -21,4 +21,56 @@ public class Messages {
     public static String CHECK_IF_25_DAY ="A vehicle can be rented for a maximum of 25 days.";
     public static String CHECK_IF_END_DATE_FOR_STARTDATE ="The end date cannot be later than the start date.";
 
+
+
+    public static String ADDED_BRAND = "Brand added.";
+    public static String UPDATED_BRAND = "Brand updated.";
+    public static String DELETED_BRAND = "Brand deleted.";
+
+    public static String ADDED_COLOR ="Color added.";
+    public static String UPDATED_COLOR ="Color updated.";
+    public static String DELETED_COLOR ="Color deleted.";
+
+    public static String ADDED_MODEL ="Model added.";
+    public static String UPDATED_MODEL ="Model updated.";
+    public static String DELETED_MODEL ="Model deleted.";
+
+    public static String ADDED_CUSTOMER ="Customer added.";
+    public static String ADDED_CORPORATE_CUSTOMER ="Corporate customer added.";
+    public static String LOGIN="Login successful";
+    public static String LOGIN_ERROR="Information is Incorrect.";
+
+    public static String ADDED_CAR="Car added.";
+    public static String UPDATED_CAR="Car updated.";
+    public static String DELETED_CAR="Car deleted";
+
+    public static String ADDED_COMMENT="Comment added.";
+    public static String UPDATED_COMMENT="Comment updated";
+    public static String DELETED_COMMENT="Comment deleted";
+
+    public static String DELETED_CORPORATE_CUSTOMER="Corporate customer deleted";
+    public static String UPDATED_CORPORATE_CUSTOMER="Corporate customer updated";
+
+    public static String UPDATED_CUSTOMER="Customer updated";
+    public static String DELETED_CUSTOMER="Customer deleted";
+
+    public static String ADDED_DISCOUNT="Discount added";
+    public static String UPDATED_DISCOUNT="Discount updated";
+    public static String DELETED_DISCOUNT="Discount deleted";
+
+    public static String ADDED_INVOICE ="Invoice added.";
+    public static String UPDATED_INVOICE= "Invoice updated.";
+    public static String DELETED_INVOICE="Invoice deleted.";
+
+    public static String UPDATED_RENTAL="Rental updated.";
+    public static String DELETED_RENTAL="Rental deleted.";
+
+    public static String ADDED_TAX_RATE="TaxRate added.";
+    public static String UPDATED_TAX_RATE ="TaxRate updated.";
+    public static String DELETED_TAX_RATE="TaxRate deleted.";
+
+    public static String ADDED_USER ="User added.";
+    public static String UPDATED_USER="User updated.";
+    public static String DELETED_USER="User deleted.";
+
 }

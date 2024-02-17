@@ -10,4 +10,5 @@ public class UpdateInvoiceRequest {
     private Float discountRate;
     private Float taxRate;
     private int rentalId;
+
 }

@@ -10,4 +10,5 @@ public class UpdateUserRequest {
     private String email;
     @Size(min = 1,max = 6,message ="password cannot be less than one letter and more than 6 letters" )
     private String password;
+    private int discountId;
 }
