@@ -2,6 +2,7 @@ package com.rentACar.rentACar.services.abstracts;
 
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.entities.concretes.CorporateCustomer;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.AddCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.UpdateCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.responses.CorporateCustomer.GetCorporateCustomerListResponse;
@@ -17,4 +18,6 @@ public interface CorporateCustomerService {
     public Result update(UpdateCorporateCustomerRequest request);
 
     public Result delete(int id);
+
+    public CorporateCustomer getCorporateCustomer();
 }

@@ -10,6 +10,7 @@ import com.rentACar.rentACar.entities.concretes.Customer;
 import com.rentACar.rentACar.entities.concretes.Model;
 import com.rentACar.rentACar.repositories.CorporateCustomerRepository;
 import com.rentACar.rentACar.services.abstracts.CorporateCustomerService;
+import com.rentACar.rentACar.services.abstracts.UserService;
 import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.AddCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.UpdateCorporateCustomerRequest;
@@ -19,6 +20,7 @@ import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerListRes
 import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerResponse;
 import com.rentACar.rentACar.services.rules.CorporateCustomerBusinessRules;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +32,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
     private final CorporateCustomerRepository corporateCustomerRepository;
     private final ModelMapperService modelMapperService;
     private final CorporateCustomerBusinessRules customerBusinessRules;
+    private final UserService userService;
 
     @Override
     public DataResult<List<GetCorporateCustomerListResponse>> getAll() {
@@ -71,4 +74,12 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         return new SuccessResult(Messages.DELETED_CORPORATE_CUSTOMER);
 
     }
+
+    @Override
+    public CorporateCustomer getCorporateCustomer() {
+        int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
+        CorporateCustomer corporateCustomer = corporateCustomerRepository.findByUserId(userId);
+        return corporateCustomer;
+    }
+
 }

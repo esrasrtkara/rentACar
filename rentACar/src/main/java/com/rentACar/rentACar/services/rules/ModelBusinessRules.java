@@ -35,7 +35,4 @@ public class ModelBusinessRules {
         model.getCars().forEach(car -> {
             car.setDeleted(model.getDeleted());
         });
-    }
-
-
-}
+    }}

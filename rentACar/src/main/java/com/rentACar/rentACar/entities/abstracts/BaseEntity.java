@@ -23,7 +23,7 @@ public abstract class BaseEntity {
     private Boolean deleted;
 
     @PrePersist
-    private void beforedAdd(){
+    private void beforeAdd(){
         createDate = LocalDate.now();
     }
     @PreUpdate
