@@ -38,12 +38,12 @@ public class AuthManager implements AuthService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     @Override
-    public DataResult<String> login(LoginRequest request) {
+    public String login(LoginRequest request) {
         Authentication authentication =authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
         if(authentication.isAuthenticated()){
             Map<String, Object> claims = new HashMap<>();
             claims.put("roles","USER");
-            return new SuccessDataResult<>(jwtService.generateToken(request.getEmail(),claims),Messages.LOGIN) ;
+            return jwtService.generateToken(request.getEmail(),claims) ;
         }
         throw new RuntimeException(Messages.LOGIN_ERROR);
     }

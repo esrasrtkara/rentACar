@@ -86,6 +86,8 @@ public class RentalManager implements RentalService {
             userDiscountRequest.setDiscount(discount);
             userDiscount(userDiscountRequest);
 
+
+
             AddInvoiceRequest invoiceRequest = new AddInvoiceRequest();
             Float taxRate = carService.carTaxRate(request.getCarId());
             Float dailyPrice = carService.carDailyPrice(request.getCarId());
@@ -96,9 +98,15 @@ public class RentalManager implements RentalService {
             invoiceRequest.setDailyPrice(dailyPrice);
             invoiceService.add(invoiceRequest);
 
+            Float price = dailyPrice*totalDay;
+            Float discountedPrice = price - (price*discount);
+            Float taxAmount = discountedPrice*taxRate;
+            Float totalPrice = discountedPrice + taxAmount;
+
             GetRentalResponse response = modelMapperService.forResponse().map(rental,GetRentalResponse.class);
             response.setDiscount(discount);
             response.setDiscountCode(request.getDiscountCode());
+            response.setTotalPrice(totalPrice);
             return new SuccessDataResult<>(response);
     }
 

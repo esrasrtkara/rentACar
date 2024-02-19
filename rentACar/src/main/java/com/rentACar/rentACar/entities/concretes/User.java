@@ -29,11 +29,8 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Customer> customers;
 
-    @OneToMany(mappedBy = "user")
-    private List<CorporateCustomer> corporateCustomers;
+
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;

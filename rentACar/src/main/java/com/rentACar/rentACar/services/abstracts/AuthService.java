@@ -7,7 +7,7 @@ import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Auth.LoginRequest;
 
 public interface AuthService {
-    public DataResult<String> login(LoginRequest request);
+    public String login(LoginRequest request);
     public Result customerRegister(CreateCustomerRequest request);
     public Result corporateCustomerRegister(CreateCorporateCustomer request);
 }

@@ -32,10 +32,10 @@ public class ColorManager implements ColorService {
 
     @Override
     public DataResult<List<GetColorListResponse>> getAll() {
-        List<Color> colors = this.colorRepository.findAll();
+        List<Color> colors = this.colorRepository.findByDeletedFalse();
         List<GetColorListResponse> responses = colors.stream().map(color -> modelMapperService.forResponse().
                 map(color, GetColorListResponse.class)).collect(Collectors.toList());
-        return  new SuccessDataResult<List<GetColorListResponse>>(responses);
+        return  new SuccessDataResult<>(responses);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ColorManager implements ColorService {
         Color color = colorRepository.findById(id).orElseThrow();
 
         GetColorResponse response = this.modelMapperService.forResponse().map(color , GetColorResponse.class);
-        return new SuccessDataResult<GetColorResponse>(response);
+        return new SuccessDataResult<>(response);
     }
 
     @Override
@@ -69,18 +69,13 @@ public class ColorManager implements ColorService {
     @Override
     public Result delete(int id) {
         Color colorToDelete = colorRepository.findById(id).orElseThrow();
-        colorRepository.delete(colorToDelete);
+        colorBusinessRules.deletedCar(colorToDelete);
+        colorRepository.save(colorToDelete);
         return new SuccessResult(Messages.DELETED_COLOR);
     }
 
     @Override
     public boolean controlColorId(int id) {
-        try {
-            Color color = colorRepository.findById(id).orElseThrow();
-            return  true;
-        }
-        catch (NoSuchElementException e){
-            return false;
-        }
+       return colorRepository.existsById(id);
     }
 }
