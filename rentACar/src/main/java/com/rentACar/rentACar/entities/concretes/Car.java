@@ -52,8 +52,12 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "tax_rate_id")
     private TaxRate taxRate;
 
-    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car")
     private List<Rental> rentals;
+    @OneToMany(mappedBy = "car")
+    @JsonIgnore
+    private List<Comment> comments;
+
 
 
     @Enumerated(EnumType.STRING)

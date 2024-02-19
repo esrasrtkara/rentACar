@@ -7,6 +7,7 @@ import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
 import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Car;
+import com.rentACar.rentACar.entities.concretes.Comment;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.constants.Messages;
@@ -133,6 +134,12 @@ public class CarManager implements CarService {
         car.setMinFindeksRate(newRating);
         return carRepository.save(car);
     }*/
+
+    public List<Comment> getComment(int id){
+        Car car = carRepository.findById(id).orElseThrow();
+        List<Comment> comments = car.getComments();
+        return comments;
+    }
 
 
 }
