@@ -3,6 +3,7 @@ package com.rentACar.rentACar.services.abstracts;
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.entities.concretes.Car;
+import com.rentACar.rentACar.entities.concretes.Comment;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
@@ -30,6 +31,8 @@ public interface CarService {
     Float carTaxRate(int id);
 
     String carStatus(int id);
+
+    public List<Comment> getComment(int id);
 
 
 

@@ -2,6 +2,7 @@ package com.rentACar.rentACar.controllers;
 
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.entities.concretes.Comment;
 import com.rentACar.rentACar.services.abstracts.CommentService;
 import com.rentACar.rentACar.services.dtos.requests.Comment.AddCommentRequest;
 import com.rentACar.rentACar.services.dtos.requests.Comment.UpdateCommentRequest;
@@ -18,7 +19,7 @@ import java.util.List;
 public class CommentsConroller {
     private final CommentService commentService;
 
-    @GetMapping
+    @GetMapping("getAll")
     DataResult<List<GetCommentListResponse>> getAll(){
         return commentService.getAll();
     }
@@ -38,4 +39,5 @@ public class CommentsConroller {
     Result delete(@PathVariable int id){
         return commentService.delete(id);
     }
+
 }

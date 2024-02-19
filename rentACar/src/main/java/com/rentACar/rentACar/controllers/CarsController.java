@@ -2,6 +2,7 @@ package com.rentACar.rentACar.controllers;
 
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.entities.concretes.Comment;
 import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
@@ -47,5 +48,10 @@ public class CarsController {
     @ResponseStatus(code = HttpStatus.OK)
     public Result delete(@PathVariable int id){
         return carService.delete(id);
+    }
+
+    @GetMapping("/cars/{carId}/comments")
+    public List<Comment> getCommentsForCar(@PathVariable int carId) {
+        return carService.getComment(carId);
     }
 }

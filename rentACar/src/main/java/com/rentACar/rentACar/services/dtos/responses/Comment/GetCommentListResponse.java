@@ -6,4 +6,5 @@ import lombok.Data;
 public class GetCommentListResponse {
     private String text;
     private int userId;
+    private int carId;
 }
