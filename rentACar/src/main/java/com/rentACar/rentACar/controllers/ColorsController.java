@@ -9,13 +9,15 @@ import com.rentACar.rentACar.services.dtos.responses.Color.GetColorListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Color.GetColorResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/colors")
+@RequestMapping("/api/colors")
 @AllArgsConstructor
+@CrossOrigin
 public class ColorsController {
     private final ColorService colorService;
 
@@ -24,22 +26,25 @@ public class ColorsController {
         return colorService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public DataResult<GetColorResponse> getById(@PathVariable int id){
         return colorService.getById(id);
     }
 
     @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddColorRequest request){
         return colorService.add(request);
     }
 
     @PutMapping
+    @ResponseStatus(code =  HttpStatus.OK)
     public Result update(@RequestBody UpdateColorRequest request){
         return colorService.update(request);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public Result delete(@PathVariable int id){
         return colorService.delete(id);
     }

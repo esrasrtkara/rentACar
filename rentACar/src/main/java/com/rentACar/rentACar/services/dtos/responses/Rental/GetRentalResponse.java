@@ -15,4 +15,5 @@ public class GetRentalResponse {
     private int userId;
     private Float discount;
     private String discountCode;
+    private Float totalPrice;
 }

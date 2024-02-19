@@ -2,6 +2,7 @@ package com.rentACar.rentACar.controllers;
 
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
+import com.rentACar.rentACar.entities.concretes.Customer;
 import com.rentACar.rentACar.services.abstracts.CustomerService;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Customer.UpdateCustomerRequest;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/customers")
 @AllArgsConstructor
+@CrossOrigin
 public class CustomersController {
 
     private final CustomerService customerService;
@@ -44,4 +46,11 @@ public class CustomersController {
     public Result delete(@PathVariable int id){
         return customerService.delete(id);
     }
+
+    @GetMapping("/user")
+    public Customer getCustomer(){
+        return customerService.getCustomer();
+    }
+
+
 }
