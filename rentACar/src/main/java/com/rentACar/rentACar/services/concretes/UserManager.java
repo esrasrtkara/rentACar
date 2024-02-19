@@ -19,6 +19,7 @@ import com.rentACar.rentACar.services.dtos.responses.User.GetUserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -104,7 +105,7 @@ public class UserManager implements UserService {
 
     @Override
     public int userId(String email) {
-        User user =userRepository.findByEmail(email).orElseThrow();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("User not found with email: " + email));
         return user.getId();
     }
 
@@ -113,8 +114,6 @@ public class UserManager implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("User not Found"));
     }
-
-
 
 
 

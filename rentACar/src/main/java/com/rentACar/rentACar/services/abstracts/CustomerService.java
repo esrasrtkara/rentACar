@@ -17,6 +17,9 @@ public interface CustomerService {
     Result update(UpdateCustomerRequest request);
     Result delete(int id);
 
+    public Customer getCustomer();
+
+
 
 
 }

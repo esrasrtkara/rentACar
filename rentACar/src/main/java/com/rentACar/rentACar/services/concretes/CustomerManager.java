@@ -6,6 +6,7 @@ import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
 import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Customer;
+import com.rentACar.rentACar.entities.concretes.User;
 import com.rentACar.rentACar.repositories.CustomerRepository;
 import com.rentACar.rentACar.services.abstracts.CustomerService;
 import com.rentACar.rentACar.services.abstracts.UserService;
@@ -16,6 +17,7 @@ import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerListRes
 import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerResponse;
 import com.rentACar.rentACar.services.rules.CustomerBusinessRules;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class CustomerManager implements CustomerService {
     private CustomerRepository customerRepository;
     private ModelMapperService modelMapperService;
     private CustomerBusinessRules customerBusinessRules;
+    private UserService userService;
 
     @Override
     public DataResult<List<GetCustomerListResponse>> getAll() {
@@ -70,4 +73,13 @@ public class CustomerManager implements CustomerService {
         customerRepository.delete(customerToDelete);
         return new SuccessResult(Messages.DELETED_CUSTOMER);
     }
+
+    public Customer getCustomer(){
+        int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
+        Customer customer = customerRepository.findByUserId(userId);
+        return customer;
+    }
+
+
+
 }
