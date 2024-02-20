@@ -8,6 +8,7 @@ import com.rentACar.rentACar.services.dtos.requests.Comment.AddCommentRequest;
 import com.rentACar.rentACar.services.dtos.requests.Comment.UpdateCommentRequest;
 import com.rentACar.rentACar.services.dtos.responses.Comment.GetCommentListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Comment.GetCommentResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,11 @@ import java.util.List;
 @RequestMapping("/api/comments")
 @RestController
 @AllArgsConstructor
+@CrossOrigin
 public class CommentsConroller {
     private final CommentService commentService;
 
-    @GetMapping("getAll")
+    @GetMapping
     DataResult<List<GetCommentListResponse>> getAll(){
         return commentService.getAll();
     }
@@ -28,11 +30,11 @@ public class CommentsConroller {
         return commentService.getById(id);
     }
     @PostMapping
-    Result add(@RequestBody AddCommentRequest request){
+    Result add(@RequestBody @Valid AddCommentRequest request){
         return commentService.add(request);
     }
     @PutMapping
-    Result update(@RequestBody UpdateCommentRequest request){
+    Result update(@RequestBody @Valid UpdateCommentRequest request){
         return commentService.update(request);
     }
     @DeleteMapping("{id}")

@@ -6,6 +6,7 @@ import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.entities.concretes.Comment;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
+import com.rentACar.rentACar.services.dtos.responses.Car.GetCarIdCommentResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 
@@ -32,7 +33,7 @@ public interface CarService {
 
     String carStatus(int id);
 
-    public List<Comment> getComment(int id);
+    public List<GetCarIdCommentResponse> getComment(int id);
 
 
 
