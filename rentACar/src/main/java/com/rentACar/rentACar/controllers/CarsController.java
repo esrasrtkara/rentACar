@@ -6,6 +6,7 @@ import com.rentACar.rentACar.entities.concretes.Comment;
 import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
+import com.rentACar.rentACar.services.dtos.responses.Car.GetCarIdCommentResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import jakarta.validation.Valid;
@@ -50,8 +51,8 @@ public class CarsController {
         return carService.delete(id);
     }
 
-    @GetMapping("/cars/{carId}/comments")
-    public List<Comment> getCommentsForCar(@PathVariable int carId) {
+    @GetMapping("/{carId}/comments")
+    public List<GetCarIdCommentResponse> getCommentsForCar(@PathVariable int carId) {
         return carService.getComment(carId);
     }
 }

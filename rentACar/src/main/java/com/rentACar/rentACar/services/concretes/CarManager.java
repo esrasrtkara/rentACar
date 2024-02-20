@@ -13,6 +13,7 @@ import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
+import com.rentACar.rentACar.services.dtos.responses.Car.GetCarIdCommentResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import com.rentACar.rentACar.services.rules.CarBusinessRules;
@@ -135,10 +136,12 @@ public class CarManager implements CarService {
         return carRepository.save(car);
     }*/
 
-    public List<Comment> getComment(int id){
+    public List<GetCarIdCommentResponse> getComment(int id){
         Car car = carRepository.findById(id).orElseThrow();
         List<Comment> comments = car.getComments();
-        return comments;
+        List<GetCarIdCommentResponse> responses = comments.stream().map(comment -> modelMapperService.forResponse().map(comment,GetCarIdCommentResponse.class))
+                .collect(Collectors.toList());
+        return responses;
     }
 
 
