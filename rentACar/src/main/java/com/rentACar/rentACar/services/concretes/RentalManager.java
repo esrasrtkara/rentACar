@@ -173,6 +173,14 @@ public class RentalManager implements RentalService {
         response.setDiscount(discount);
         return response;
     }
+    public List<GetRentalListResponse> getRentalUserId(){
+        int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Rental> rentals = rentalRepository.findByUserId(userId);
+        List<GetRentalListResponse> response = rentals.stream().map(rental -> modelMapperService.forResponse().map(rental,GetRentalListResponse.class))
+                .collect(Collectors.toList());
+
+        return response;
+    }
 
 
     @Override

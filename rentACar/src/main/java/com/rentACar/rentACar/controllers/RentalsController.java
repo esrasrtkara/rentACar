@@ -35,6 +35,11 @@ public class RentalsController {
         return rentalService.getById(id);
     }
 
+    @GetMapping("userId")
+    public  List<GetRentalListResponse>  getRentalUserId(){
+        return rentalService.getRentalUserId();
+    }
+
     @PostMapping("/filter")
     public GetCarFilterResponse carFilter(@RequestBody CarFilterRequest request){
         return rentalService.carFilter(request);
