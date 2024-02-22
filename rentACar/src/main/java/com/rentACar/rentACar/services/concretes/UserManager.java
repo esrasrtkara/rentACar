@@ -109,6 +109,12 @@ public class UserManager implements UserService {
         return user.getId();
     }
 
+    public int getUserId(){
+       String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("User not found with email: " + email));
+        return user.getId();
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
