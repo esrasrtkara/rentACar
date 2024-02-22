@@ -158,13 +158,16 @@ public class RentalManager implements RentalService {
         Long totalDay = ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate());
         Float price = carService.carDailyPrice(request.getCarId())*totalDay;
         int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
-        Float discount = discountBusinessRules.discount(request.getCarId(),request.getDiscountCode());
+        int carId = request.getCarId();
+        String code = request.getDiscountCode();
+        Float discount = discountBusinessRules.discount(carId,code);
         Float taxRate = carService.carTaxRate(request.getCarId());
         Float discountedPrice = price - (price*discount);
         Float taxAmount = discountedPrice*taxRate;
         Float totalPrice = discountedPrice + taxAmount;
         String carStatus = carService.carStatus(request.getCarId());
-        GetCarFilterResponse response = this.modelMapperService.forRequest().map(request,GetCarFilterResponse.class);
+        Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
+        GetCarFilterResponse response = this.modelMapperService.forResponse().map(rental,GetCarFilterResponse.class);
         response.setCarStatus(carStatus);
         response.setTotalPrice(totalPrice);
         response.setDiscount(discount);
