@@ -26,6 +26,8 @@ public interface RentalService {
     public GetCarFilterResponse carFilter(CarFilterRequest request);
     public void userDiscount(AddUserDiscountRequest request);
 
+    public List<GetRentalListResponse> getRentalUserId();
+
 
 
 }
