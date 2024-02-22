@@ -67,7 +67,7 @@ public class SecurityConfiguration  {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((req) -> req
                         .requestMatchers(WHITE_LIST_URLS).permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/users/**").hasAnyAuthority(Role.ADMIN.name())
+                      //  .requestMatchers(HttpMethod.POST,"/api/users/**").hasAnyAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
