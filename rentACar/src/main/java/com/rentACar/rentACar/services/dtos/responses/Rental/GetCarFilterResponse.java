@@ -6,10 +6,10 @@ import java.time.LocalDate;
 
 @Data
 public class GetCarFilterResponse {
+    private int id;
     private String carStatus;
     private Float totalPrice;
     private Float discount;
-    private int id;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDate returnDate;
@@ -17,6 +17,4 @@ public class GetCarFilterResponse {
     private int endKilometer;
     private int carId;
     private int userId;
-    private String discountCode;
-
 }
