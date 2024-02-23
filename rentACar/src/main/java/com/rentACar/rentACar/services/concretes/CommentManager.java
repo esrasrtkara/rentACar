@@ -69,4 +69,13 @@ public class CommentManager implements CommentService {
     }
 
 
+    public List<GetCommentListResponse> getCommentUserId(){
+        int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Comment> comments = commentRepository.findByUserId(userId);
+        List<GetCommentListResponse> responses = comments.stream().map(comment -> modelMapperService.forResponse().map(comment,GetCommentListResponse.class))
+                .collect(Collectors.toList());
+        return  responses;
+    }
+
+
 }
