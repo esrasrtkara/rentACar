@@ -15,4 +15,5 @@ public interface RentalRepository extends JpaRepository<Rental,Integer> {
 
 
     List<Rental> findByUserId(int userId);
+
 }
