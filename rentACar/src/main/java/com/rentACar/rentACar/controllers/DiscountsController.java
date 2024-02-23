@@ -51,4 +51,9 @@ public class DiscountsController {
     public DiscountConfiguration getConfig() {
         return discountConfig;
     }
+
+    @GetMapping("userId")
+    public List<GetDiscountListResponse> getDiscountUserId(){
+        return discountService.getDiscountUserId();
+    }
 }

@@ -43,4 +43,9 @@ public class InvoiceController {
     public Float totalPrice( @RequestParam int rentalId){
         return invoiceService.totalPrice(rentalId);
     }
+    @GetMapping("rentalId")
+    public GetInvoiceResponse getIncoiceRentalId(int rentalId){
+        return invoiceService.getIncoiceRentalId(rentalId);
+    }
+
 }

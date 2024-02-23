@@ -42,4 +42,9 @@ public class CommentsConroller {
         return commentService.delete(id);
     }
 
+    @GetMapping("userId")
+    public List<GetCommentListResponse> getCommentUserId(){
+        return commentService.getCommentUserId();
+    }
+
 }

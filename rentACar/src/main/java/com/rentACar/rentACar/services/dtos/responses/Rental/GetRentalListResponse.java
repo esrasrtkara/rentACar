@@ -17,4 +17,5 @@ public class GetRentalListResponse {
     private int endKilometer;
     private int carId;
     private int userId;
+    private LocalDate createDate;
 }
