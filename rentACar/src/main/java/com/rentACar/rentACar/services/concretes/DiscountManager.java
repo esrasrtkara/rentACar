@@ -9,6 +9,7 @@ import com.rentACar.rentACar.entities.concretes.Discount;
 import com.rentACar.rentACar.repositories.DiscountRepository;
 import com.rentACar.rentACar.services.abstracts.DiscountService;
 import com.rentACar.rentACar.services.abstracts.RentalService;
+import com.rentACar.rentACar.services.abstracts.UserService;
 import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddDiscountRequest;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddUserDiscountRequest;
@@ -18,6 +19,7 @@ import com.rentACar.rentACar.services.dtos.responses.Discount.GetDiscountListRes
 import com.rentACar.rentACar.services.rules.DiscountBusinessRules;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,6 +35,7 @@ public class DiscountManager implements DiscountService {
     private final DiscountRepository discountRepository;
     private final ModelMapperService modelMapperService;
     private final DiscountBusinessRules discountBusinessRules;
+    private final UserService userService;
     @Override
     public DataResult<List<GetDiscountListResponse>> getAll() {
         List<Discount> discounts = discountRepository.findAll();
@@ -66,6 +69,14 @@ public class DiscountManager implements DiscountService {
         Discount discountToDelete = discountRepository.findById(id).orElseThrow();
         discountRepository.delete(discountToDelete);
         return new SuccessResult(Messages.DELETED_DISCOUNT);
+    }
+
+    public List<GetDiscountListResponse> getDiscountUserId(){
+        int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
+       List<Discount>  discounts = discountRepository.findByUserIdAndCodeStatusNull(userId);
+       List<GetDiscountListResponse> responses = discounts.stream().map(discount -> modelMapperService.forResponse().map(discount,GetDiscountListResponse.class))
+               .collect(Collectors.toList());
+       return responses;
     }
 
 

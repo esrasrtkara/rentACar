@@ -17,4 +17,5 @@ public class GetCarFilterResponse {
     private int endKilometer;
     private int carId;
     private int userId;
+    private String discountCode;
 }

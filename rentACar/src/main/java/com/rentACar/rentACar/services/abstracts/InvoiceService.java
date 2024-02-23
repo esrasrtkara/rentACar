@@ -21,6 +21,8 @@ public interface InvoiceService {
     //deneme için
     public Float totalPrice(int rentalId);
 
+    public GetInvoiceResponse getIncoiceRentalId(int rentalId);
+
 
 
 }

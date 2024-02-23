@@ -18,4 +18,6 @@ public interface CommentService {
     public Result update(UpdateCommentRequest request);
     public Result delete(int id);
 
+    public List<GetCommentListResponse> getCommentUserId();
+
 }

@@ -171,6 +171,7 @@ public class RentalManager implements RentalService {
         response.setCarStatus(carStatus);
         response.setTotalPrice(totalPrice);
         response.setDiscount(discount);
+        response.setDiscountCode(code);
         return response;
     }
     public List<GetRentalListResponse> getRentalUserId(){
@@ -187,9 +188,12 @@ public class RentalManager implements RentalService {
     public void userDiscount(AddUserDiscountRequest request) {
 
         if(request.getDiscount() == 0){
-            int count = countRentalsByUserId(request.getRental().getUser().getId());
-            int countUser =  count -1;
-            if(countUser % discountConfig.getRentalCount() == 0) {
+           // int count = countRentalsByUserId(request.getRental().getUser().getId());
+            List<GetRentalListResponse> responses = getRentalUserId();
+            int countRental=discountConfig.getRentalCount();
+            int countUser = responses.size() + countRental;
+
+            if(countUser % countRental  == 0) {
                 AddDiscountRequest discountRequest = new AddDiscountRequest();
                 discountRequest.setRate(discountConfig.getRate());
                 discountRequest.setCode(generateRandomDiscountCode());

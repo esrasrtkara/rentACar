@@ -94,4 +94,10 @@ public class InvoiceManager implements InvoiceService {
         Long maxInvoiceNumber = invoiceRepository.findMaxInvoiceNumber();
         return (maxInvoiceNumber != null) ? maxInvoiceNumber + 1 : 1L;
     }
+
+    public GetInvoiceResponse getIncoiceRentalId(int rentalId){
+        Invoice invoice = invoiceRepository.findByRentalId(rentalId).orElseThrow();
+        GetInvoiceResponse response = modelMapperService.forResponse().map(invoice,GetInvoiceResponse.class);
+        return response;
+    }
 }
