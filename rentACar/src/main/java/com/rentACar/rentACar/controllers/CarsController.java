@@ -28,6 +28,10 @@ public class CarsController {
         return carService.getAll();
     }
 
+    @GetMapping("active")
+    public DataResult<List<GetCarListResponse>> getAllActiveCar(){
+        return carService.getAllActiveCar();
+    }
     @GetMapping("/{id}")
     public DataResult<GetCarResponse> getById(@PathVariable int id){
         return carService.getById(id);

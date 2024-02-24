@@ -81,6 +81,7 @@ public class RentalManager implements RentalService {
             String code = request.getDiscountCode();
             Float discount = discountBusinessRules.discount(carId,code);
             rentalRepository.save(rental);
+            carService.carStatusPasive(request.getCarId());
 
             AddUserDiscountRequest userDiscountRequest = new AddUserDiscountRequest();
             userDiscountRequest.setRental(rental);
@@ -113,14 +114,16 @@ public class RentalManager implements RentalService {
 
     @Override
     public Result update(UpdateRentalRequest request) {
-        Long totalDay = ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate());
         this.rentalBusinessRules.checkIfEndDateBeforeStartDate(request.getStartDate(),request.getEndDate());
         this.rentalBusinessRules.checkIfCarId(request.getCarId());
         this.rentalBusinessRules.check25Day(request.getStartDate(),request.getEndDate());
         Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
         rental.setStartKilometer(carService.carKilometer(request.getCarId()));
         rental.setUser(userService.userEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+        carService.carStatusActive(request.getCarId());
+        carService.startKilometer(request.getCarId(),request.getEndKilometer());
         rentalRepository.save(rental);
+
         return new SuccessResult(Messages.UPDATED_RENTAL);
     }
 

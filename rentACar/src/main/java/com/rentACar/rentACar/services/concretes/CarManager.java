@@ -7,6 +7,7 @@ import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
 import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Car;
+import com.rentACar.rentACar.entities.concretes.CarStatus;
 import com.rentACar.rentACar.entities.concretes.Comment;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
@@ -42,9 +43,17 @@ public class CarManager implements CarService {
         return new SuccessDataResult<>(responses);
     }
 
+    public DataResult<List<GetCarListResponse>> getAllActiveCar(){
+        List<Car> cars = carRepository.findByDeletedFalseAndCarStatus(CarStatus.ACTIVE);
+        List<GetCarListResponse> responses = cars.stream().map(car -> modelMapperService.forResponse()
+                .map(car,GetCarListResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<>(responses);
+    }
+
     @Override
     public DataResult<GetCarResponse> getById(int id) {
         Car car = carRepository.findById(id).orElseThrow();
+        carBusinessRules.checkIfCarStatus(car.getId());
         GetCarResponse response = this.modelMapperService.forResponse().map(car,GetCarResponse.class);
         return new SuccessDataResult<>(response);
     }
@@ -142,6 +151,19 @@ public class CarManager implements CarService {
         List<GetCarIdCommentResponse> responses = comments.stream().map(comment -> modelMapperService.forResponse().map(comment,GetCarIdCommentResponse.class))
                 .collect(Collectors.toList());
         return responses;
+    }
+
+    public void carStatusActive(int id){
+        Car car = carRepository.findById(id).orElseThrow();
+        car.setCarStatus(CarStatus.ACTIVE);
+    }
+    public void carStatusPasive(int id){
+        Car car = carRepository.findById(id).orElseThrow();
+        car.setCarStatus(CarStatus.PASIVE);
+    }
+    public void startKilometer(int id,int startKilometer){
+        Car car = carRepository.findById(id).orElseThrow();
+        car.setKilometer(startKilometer);
     }
 
 
