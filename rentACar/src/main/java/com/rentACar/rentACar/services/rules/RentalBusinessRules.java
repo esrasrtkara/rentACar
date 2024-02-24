@@ -39,4 +39,5 @@ public class RentalBusinessRules {
             throw new RuntimeException(Messages.CHECK_IF_25_DAY);
         }
     }
+
 }

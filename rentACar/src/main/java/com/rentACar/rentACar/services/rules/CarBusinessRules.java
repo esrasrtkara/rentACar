@@ -1,6 +1,7 @@
 package com.rentACar.rentACar.services.rules;
 
 import com.rentACar.rentACar.entities.concretes.Car;
+import com.rentACar.rentACar.entities.concretes.CarStatus;
 import com.rentACar.rentACar.entities.concretes.Rental;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.ColorService;
@@ -62,4 +63,17 @@ public class CarBusinessRules {
         });
 
     }
+
+    public boolean checkIfCarStatus(int id){
+        Car car = carRepository.findById(id).orElseThrow();
+        if(car.getCarStatus().equals(CarStatus.ACTIVE)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
 }

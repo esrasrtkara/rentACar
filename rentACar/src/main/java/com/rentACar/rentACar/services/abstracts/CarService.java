@@ -35,6 +35,11 @@ public interface CarService {
 
     public List<GetCarIdCommentResponse> getComment(int id);
 
+    public void carStatusPasive(int id);
+    public void carStatusActive(int id);
+    public DataResult<List<GetCarListResponse>> getAllActiveCar();
+    public void startKilometer(int id,int startKilometer);
+
 
 
 }
