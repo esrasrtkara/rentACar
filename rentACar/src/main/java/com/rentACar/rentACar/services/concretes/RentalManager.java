@@ -15,6 +15,7 @@ import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddDiscountRequest;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddUserDiscountRequest;
 import com.rentACar.rentACar.services.dtos.requests.Invoice.AddInvoiceRequest;
+import com.rentACar.rentACar.services.dtos.requests.Invoice.UpdateInvoiceRequest;
 import com.rentACar.rentACar.services.dtos.requests.Rental.AddRentalRequest;
 import com.rentACar.rentACar.services.dtos.requests.Rental.CarFilterRequest;
 import com.rentACar.rentACar.services.dtos.requests.Rental.UpdateRentalRequest;
@@ -120,17 +121,6 @@ public class RentalManager implements RentalService {
         rental.setStartKilometer(carService.carKilometer(request.getCarId()));
         rental.setUser(userService.userEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         rentalRepository.save(rental);
-
-        AddInvoiceRequest invoiceRequest = new AddInvoiceRequest();
-        Float taxRate = carService.carTaxRate(request.getCarId());
-        Float discount = discountBusinessRules.discount(request.getCarId(),request.getDiscountCode());
-        Float dailyPrice = carService.carDailyPrice(request.getCarId());
-        invoiceRequest.setRental(rental);
-        invoiceRequest.setTaxRate(taxRate);
-        invoiceRequest.setDiscountRate(discount);
-        invoiceRequest.setTotalDay(totalDay);
-        invoiceRequest.setDailyPrice(dailyPrice);
-        invoiceService.add(invoiceRequest);
         return new SuccessResult(Messages.UPDATED_RENTAL);
     }
 
@@ -191,7 +181,13 @@ public class RentalManager implements RentalService {
            // int count = countRentalsByUserId(request.getRental().getUser().getId());
             List<GetRentalListResponse> responses = getRentalUserId();
             int countRental=discountConfig.getRentalCount();
-            int countUser = responses.size() + countRental;
+            int countUser = responses.size();
+            if(countUser<=2){
+                 countUser = responses.size() + countRental;
+            }
+            else{
+                 countUser = responses.size() -1;
+            }
 
             if(countUser % countRental  == 0) {
                 AddDiscountRequest discountRequest = new AddDiscountRequest();

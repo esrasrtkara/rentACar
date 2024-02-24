@@ -19,5 +19,6 @@ public class UpdateRentalRequest {
     private String discountCode;
     private int userId;
     private int carId;
+    private int invoiceId;
 
 }
