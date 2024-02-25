@@ -1,7 +1,6 @@
 package com.rentACar.rentACar.services.rules;
 
-import com.rentACar.rentACar.entities.concretes.Discount;
-import com.rentACar.rentACar.entities.concretes.Rental;
+import com.rentACar.rentACar.entities.concretes.*;
 import com.rentACar.rentACar.repositories.RentalRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
 import com.rentACar.rentACar.services.abstracts.DiscountService;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -39,5 +39,12 @@ public class RentalBusinessRules {
             throw new RuntimeException(Messages.CHECK_IF_25_DAY);
         }
     }
+
+    public void invoiceDeleted(Rental rental){
+        rental.setDeleted(true);
+        List<Invoice> invoices = rental.getInvoices();
+        rental.getInvoices().forEach(invoice -> {
+            invoice.setDeleted(rental.getDeleted());
+        });}
 
 }
