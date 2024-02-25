@@ -131,7 +131,9 @@ public class RentalManager implements RentalService {
     @Transactional
     public Result delete(int id) {
         Rental rentalToDelete = rentalRepository.findById(id).orElseThrow();
-        rentalRepository.delete(rentalToDelete);
+        rentalBusinessRules.invoiceDeleted(rentalToDelete);
+        carService.carStatusActive(rentalToDelete.getCar().getId());
+        rentalRepository.save(rentalToDelete);
         return new SuccessResult(Messages.DELETED_RENTAL);
     }
 
@@ -169,7 +171,7 @@ public class RentalManager implements RentalService {
     }
     public List<GetRentalListResponse> getRentalUserId(){
         int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<Rental> rentals = rentalRepository.findByUserId(userId);
+        List<Rental> rentals = rentalRepository.findByUserIdAndDeletedFalse(userId);
         List<GetRentalListResponse> response = rentals.stream().map(rental -> modelMapperService.forResponse().map(rental,GetRentalListResponse.class))
                 .collect(Collectors.toList());
 
