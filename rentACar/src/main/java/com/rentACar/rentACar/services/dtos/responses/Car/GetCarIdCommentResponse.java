@@ -8,10 +8,10 @@ import java.time.LocalDate;
 
 @Data
 public class GetCarIdCommentResponse {
+    private int id;
     private String text;
     private int userId;
-    private String firstName;
-    private String companyName;
+    private int carId;
 
 
 }

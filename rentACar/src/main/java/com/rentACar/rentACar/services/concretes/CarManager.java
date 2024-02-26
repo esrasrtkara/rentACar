@@ -9,8 +9,10 @@ import com.rentACar.rentACar.core.utilities.results.SuccessResult;
 import com.rentACar.rentACar.entities.concretes.Car;
 import com.rentACar.rentACar.entities.concretes.CarStatus;
 import com.rentACar.rentACar.entities.concretes.Comment;
+import com.rentACar.rentACar.entities.concretes.Discount;
 import com.rentACar.rentACar.repositories.CarRepository;
 import com.rentACar.rentACar.services.abstracts.CarService;
+import com.rentACar.rentACar.services.abstracts.DiscountService;
 import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Car.AddCarRequest;
 import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
@@ -21,6 +23,7 @@ import com.rentACar.rentACar.services.rules.CarBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -32,6 +35,7 @@ public class CarManager implements CarService {
     private final ModelMapperService modelMapperService;
     private final CarBusinessRules carBusinessRules;
     private final CloudinaryService cloudinaryService;
+    private final DiscountService discountService;
 
 
 
@@ -166,5 +170,24 @@ public class CarManager implements CarService {
         car.setKilometer(startKilometer);
     }
 
+    public List<GetCarListResponse> getDiscountedCars() {
+        List<Car> discountedCars = carRepository.findByDeletedFalseAndCarStatus(CarStatus.ACTIVE);
+        List<Discount> discounts = discountService.getAllDiscount();
+
+        List<Car> discountedCarsWithDiscount = new ArrayList<>();
+
+        for (Discount discount : discounts) {
+            Car car = discount.getCar();
+            if (discountedCars.contains(car)) { // İndirimli araçlar listesinde varsa
+                discountedCarsWithDiscount.add(car);
+            }
+        }
+
+        List<GetCarListResponse> responses = discountedCarsWithDiscount.stream()
+                .map(car -> modelMapperService.forResponse().map(car, GetCarListResponse.class))
+                .collect(Collectors.toList());
+
+        return responses;
+    }
 
 }

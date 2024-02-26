@@ -5,9 +5,10 @@ import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCorporateCustomer;
 import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Auth.LoginRequest;
+import com.rentACar.rentACar.services.dtos.responses.Auth.AuthResponse;
 
 public interface AuthService {
-    public String login(LoginRequest request);
+    public AuthResponse login(LoginRequest request);
     public Result customerRegister(CreateCustomerRequest request);
     public Result corporateCustomerRegister(CreateCorporateCustomer request);
 }

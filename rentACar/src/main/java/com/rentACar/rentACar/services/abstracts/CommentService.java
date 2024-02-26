@@ -7,6 +7,7 @@ import com.rentACar.rentACar.services.dtos.requests.Comment.AddCommentRequest;
 import com.rentACar.rentACar.services.dtos.requests.Comment.UpdateCommentRequest;
 import com.rentACar.rentACar.services.dtos.responses.Comment.GetCommentListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Comment.GetCommentResponse;
+import com.rentACar.rentACar.services.dtos.responses.Customer.GetCustomerResponse;
 
 import java.util.List;
 
@@ -19,5 +20,6 @@ public interface CommentService {
     public Result delete(int id);
 
     public List<GetCommentListResponse> getCommentUserId();
+
 
 }

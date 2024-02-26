@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class AddCommentRequest {
+
     @NotNull
     private String text;
     private int carId;

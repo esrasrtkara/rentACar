@@ -17,4 +17,6 @@ public interface DiscountRepository extends JpaRepository<Discount,Integer> {
     List<Discount> findByUserId(int userId);
 
     List<Discount> findByUserIdAndCodeStatusNull(int userId);
+
+    List<Discount> findByCarIdNotNull();
 }

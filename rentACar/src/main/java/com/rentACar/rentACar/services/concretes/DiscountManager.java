@@ -14,6 +14,7 @@ import com.rentACar.rentACar.services.constants.Messages;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddDiscountRequest;
 import com.rentACar.rentACar.services.dtos.requests.Discount.AddUserDiscountRequest;
 import com.rentACar.rentACar.services.dtos.requests.Discount.UpdateDiscountRequest;
+import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Discount.GetDiscountByIdResponse;
 import com.rentACar.rentACar.services.dtos.responses.Discount.GetDiscountListResponse;
 import com.rentACar.rentACar.services.rules.DiscountBusinessRules;
@@ -78,6 +79,14 @@ public class DiscountManager implements DiscountService {
                .collect(Collectors.toList());
        return responses;
     }
+
+    public List<Discount> getAllDiscount() {
+        List<Discount> discounts = discountRepository.findAll();
+
+        return discounts;
+    }
+
+
 
 
 }

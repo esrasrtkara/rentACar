@@ -1,6 +1,7 @@
 package com.rentACar.rentACar.services.concretes;
 
 import com.rentACar.rentACar.core.services.JwtService;
+import com.rentACar.rentACar.core.services.RefreshTokenService;
 import com.rentACar.rentACar.core.utilities.results.DataResult;
 import com.rentACar.rentACar.core.utilities.results.Result;
 import com.rentACar.rentACar.core.utilities.results.SuccessDataResult;
@@ -17,6 +18,7 @@ import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Auth.LoginRequest;
 import com.rentACar.rentACar.services.dtos.requests.CorporateCustomer.AddCorporateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Customer.AddCustomerRequest;
+import com.rentACar.rentACar.services.dtos.responses.Auth.AuthResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,13 +39,20 @@ public class AuthManager implements AuthService {
     private final CorporateCustomerService corporateCustomerService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final RefreshTokenService refreshTokenService;
     @Override
-    public String login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) {
         Authentication authentication =authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
         if(authentication.isAuthenticated()){
             Map<String, Object> claims = new HashMap<>();
             claims.put("roles","USER");
-            return jwtService.generateToken(request.getEmail(),claims) ;
+            User user = userService.userEmail(request.getEmail());
+            AuthResponse authResponse = new AuthResponse();
+            authResponse.setMessage("User successfully login.");
+            authResponse.setAccessToken(jwtService.generateToken(request.getEmail(),claims));
+            authResponse.setRefreshToken(refreshTokenService.createRefreshToken(user));
+            authResponse.setUserId(user.getId());
+            return authResponse  ;
         }
         throw new RuntimeException(Messages.LOGIN_ERROR);
     }

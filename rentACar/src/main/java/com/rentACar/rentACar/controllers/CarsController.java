@@ -59,4 +59,8 @@ public class CarsController {
     public List<GetCarIdCommentResponse> getCommentsForCar(@PathVariable int carId) {
         return carService.getComment(carId);
     }
+    @GetMapping("discountCar")
+    public List<GetCarListResponse> getDiscountedCars(){
+      return   carService.getDiscountedCars();
+    }
 }
