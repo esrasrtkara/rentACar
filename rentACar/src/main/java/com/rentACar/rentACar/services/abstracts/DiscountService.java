@@ -20,6 +20,7 @@ public interface DiscountService {
     public Result update(UpdateDiscountRequest request);
     public Result delete(int id);
     public List<GetDiscountListResponse> getDiscountUserId();
+    public List<Discount> getAllDiscount();
 
 
 }

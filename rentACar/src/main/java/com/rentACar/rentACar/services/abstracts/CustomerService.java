@@ -18,6 +18,7 @@ public interface CustomerService {
     Result delete(int id);
 
     public Customer getCustomer();
+    public GetCustomerResponse getCustomerUserId(int userId);
 
 
 

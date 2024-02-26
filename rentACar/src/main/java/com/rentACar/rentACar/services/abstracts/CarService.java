@@ -39,7 +39,7 @@ public interface CarService {
     public void carStatusActive(int id);
     public DataResult<List<GetCarListResponse>> getAllActiveCar();
     public void startKilometer(int id,int startKilometer);
-
+    public List<GetCarListResponse> getDiscountedCars();
 
 
 }

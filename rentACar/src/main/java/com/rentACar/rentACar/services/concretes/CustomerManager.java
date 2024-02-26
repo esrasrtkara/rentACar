@@ -80,6 +80,14 @@ public class CustomerManager implements CustomerService {
         return customer;
     }
 
+    public GetCustomerResponse getCustomerUserId(int userId){
+      Customer customer = customerRepository.findByUserId(userId);
+      GetCustomerResponse response = modelMapperService.forResponse().map(customer,GetCustomerResponse.class);
+      return  response;
+    }
+
+
+
 
 
 }

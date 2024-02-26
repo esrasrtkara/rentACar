@@ -52,5 +52,10 @@ public class CustomersController {
         return customerService.getCustomer();
     }
 
+    @GetMapping("user/{userId}")
+    public GetCustomerResponse getCustomerUserId(@PathVariable int userId){
+        return customerService.getCustomerUserId(userId);
+    }
+
 
 }

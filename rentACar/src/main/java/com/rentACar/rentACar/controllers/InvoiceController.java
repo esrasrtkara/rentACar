@@ -39,10 +39,10 @@ public class InvoiceController {
     Result delete(@PathVariable int id){
         return invoiceService.delete(id);
     }
-    @GetMapping("{total}")
+   /* @GetMapping("{total}")
     public Float totalPrice( @RequestParam int rentalId){
         return invoiceService.totalPrice(rentalId);
-    }
+    }*/
     @GetMapping("rental/{rentalId}")
     public GetInvoiceResponse getIncoiceRentalId(@PathVariable int rentalId){
         return invoiceService.getIncoiceRentalId(rentalId);

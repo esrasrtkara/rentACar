@@ -6,6 +6,7 @@ import com.rentACar.rentACar.services.abstracts.AuthService;
 import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCorporateCustomer;
 import com.rentACar.rentACar.services.dtos.requests.Auth.CreateCustomerRequest;
 import com.rentACar.rentACar.services.dtos.requests.Auth.LoginRequest;
+import com.rentACar.rentACar.services.dtos.responses.Auth.AuthResponse;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class AuthController {
 
     private final AuthService authService;
     @PostMapping("login")
-    public String login(@RequestBody LoginRequest request){
+    public AuthResponse login(@RequestBody LoginRequest request){
         return authService.login(request);
     }
     @PostMapping("customer-register")

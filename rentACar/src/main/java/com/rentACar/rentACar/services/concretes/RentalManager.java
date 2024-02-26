@@ -80,6 +80,7 @@ public class RentalManager implements RentalService {
             int carId = request.getCarId();
             String code = request.getDiscountCode();
             Float discount = discountBusinessRules.discount(carId,code);
+            rental.setDeleted(false);
             rentalRepository.save(rental);
             carService.carStatusPasive(request.getCarId());
 
@@ -120,6 +121,7 @@ public class RentalManager implements RentalService {
         Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
         rental.setStartKilometer(carService.carKilometer(request.getCarId()));
         rental.setUser(userService.userEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+        rental.setDeleted(false);
         carService.carStatusActive(request.getCarId());
         carService.startKilometer(request.getCarId(),request.getEndKilometer());
         rentalRepository.save(rental);
@@ -152,7 +154,6 @@ public class RentalManager implements RentalService {
     public GetCarFilterResponse carFilter(CarFilterRequest request) {
         Long totalDay = ChronoUnit.DAYS.between(request.getStartDate(),request.getEndDate());
         Float price = carService.carDailyPrice(request.getCarId())*totalDay;
-        int userId =userService.userId(SecurityContextHolder.getContext().getAuthentication().getName());
         int carId = request.getCarId();
         String code = request.getDiscountCode();
         Float discount = discountBusinessRules.discount(carId,code);
@@ -174,7 +175,6 @@ public class RentalManager implements RentalService {
         List<Rental> rentals = rentalRepository.findByUserIdAndDeletedFalse(userId);
         List<GetRentalListResponse> response = rentals.stream().map(rental -> modelMapperService.forResponse().map(rental,GetRentalListResponse.class))
                 .collect(Collectors.toList());
-
         return response;
     }
 
