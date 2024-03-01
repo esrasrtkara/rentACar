@@ -74,6 +74,7 @@ public class CarManager implements CarService {
 
         Car car = this.modelMapperService.forRequest().map(request,Car.class);
         car.setImagePath(cloudinaryService.uploadFile(request.getFile()));
+        car.setDeleted(false);
         carRepository.save(car);
         return new SuccessResult(Messages.ADDED_CAR);
     }
@@ -91,6 +92,7 @@ public class CarManager implements CarService {
 
         Car car = this.modelMapperService.forRequest().map(request,Car.class);
         car.setImagePath(cloudinaryService.uploadFile(request.getFile()));
+        car.setDeleted(false);
         carRepository.save(car);
         return new SuccessResult(Messages.UPDATED_CAR);
     }
