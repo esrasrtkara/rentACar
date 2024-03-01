@@ -4,7 +4,7 @@ public enum FuelType  {
     PETROL,
     DIESEL,
     ELECTRICITY,
-    HYBRİD;
+    HYBRID;
 
    public String getFuelType(){
        return name();

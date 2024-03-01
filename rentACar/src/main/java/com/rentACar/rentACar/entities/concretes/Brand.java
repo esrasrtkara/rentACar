@@ -17,8 +17,7 @@ public class Brand extends BaseEntity {
 
     @Column(name = "name")
     private String name;
-    @Column(name = "logo_path")
-    private String logoPath;
+
 
     @OneToMany(mappedBy = "brand",cascade = CascadeType.ALL)
     private List<Model> models;

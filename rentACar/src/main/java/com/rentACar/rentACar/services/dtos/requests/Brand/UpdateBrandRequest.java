@@ -11,5 +11,5 @@ public class UpdateBrandRequest {
     @Size(min = 2 , message = "Brand name cannot be less than 2 characters")
     @NotNull(message = "Brand name cannot be null.")
     private String name;
-    private MultipartFile logoPath;
+
 }
