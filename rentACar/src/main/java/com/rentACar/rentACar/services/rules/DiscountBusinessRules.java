@@ -24,13 +24,13 @@ public class DiscountBusinessRules {
         LocalDate today = LocalDate.now();
 
 
-        if (discountCode != null && "PASIVE".equals(discountCode.getCodeStatus())) {
+        if (discountCode != null && !"".equals(discountCode)  && "PASIVE".equals(discountCode.getCodeStatus())) {
             throw new RuntimeException("Bu kod geçersiz!");
         } else {
             float carDiscountRate = (discountCar != null && isActiveDiscount(discountCar, today)) ? discountCar.getRate() : 0F;
             float userDiscountRate ;
 
-           if (discountCode != null && carDiscountRate <= discountCode.getRate() &&  code != null && code.equals(discountCode.getCode()) && isActiveDiscount(discountCode,today)) {
+           if (discountCode != null && !"".equals(discountCode)  && carDiscountRate <= discountCode.getRate() &&  code != null && code.equals(discountCode.getCode()) && isActiveDiscount(discountCode,today)) {
                userDiscountRate = discountCode.getRate();
                discountCode.setCodeStatus("PASIVE");
             }

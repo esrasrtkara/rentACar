@@ -6,5 +6,5 @@ import lombok.Data;
 public class GetBrandResponse {
     private int id;
     private String name;
-    private String logoPath;
+
 }

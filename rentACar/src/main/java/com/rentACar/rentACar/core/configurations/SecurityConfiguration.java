@@ -57,7 +57,8 @@ public class SecurityConfiguration  {
             "/api/auth/customer-register/**",
             "/api/auth/corporate-register/**",
             "/api/rentals/filter/**",
-            "/api/cars/discountCar/**"
+            "/api/cars/discountCar/**",
+            "/api/cars/active/**"
 
     };
 

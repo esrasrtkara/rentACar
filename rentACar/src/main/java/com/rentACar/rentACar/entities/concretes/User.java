@@ -33,12 +33,7 @@ public class User extends BaseEntity implements UserDetails {
 
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Rating> ratings;
 
-    @ManyToOne
-    @JoinColumn(name = "discount_id")
-    private Discount discount;
 
 
 
