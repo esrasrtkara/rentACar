@@ -1,8 +1,6 @@
 package com.rentACar.rentACar.services.dtos.requests.Car;
 
-import com.rentACar.rentACar.entities.concretes.CaseType;
-import com.rentACar.rentACar.entities.concretes.FuelType;
-import com.rentACar.rentACar.entities.concretes.GearType;
+import com.rentACar.rentACar.entities.concretes.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
@@ -29,4 +27,6 @@ public class AddCarRequest {
     private GearType gearType;
     private  int modelId;
     private int colorId;
+    private int taxRateId;
+    private CarStatus carStatus;
 }
