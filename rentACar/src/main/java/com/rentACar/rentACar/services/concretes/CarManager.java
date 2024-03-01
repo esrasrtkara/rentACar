@@ -22,6 +22,7 @@ import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import com.rentACar.rentACar.services.rules.CarBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,6 @@ public class CarManager implements CarService {
 
         Car car = this.modelMapperService.forRequest().map(request,Car.class);
         car.setImagePath(cloudinaryService.uploadFile(request.getFile()));
-        car.setDeleted(false);
         carRepository.save(car);
         return new SuccessResult(Messages.UPDATED_CAR);
     }

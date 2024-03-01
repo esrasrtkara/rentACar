@@ -9,6 +9,7 @@ import com.rentACar.rentACar.services.dtos.requests.Car.UpdateCarRequest;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarIdCommentResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarListResponse;
 import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

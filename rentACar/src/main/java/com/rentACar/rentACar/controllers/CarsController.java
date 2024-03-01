@@ -12,7 +12,9 @@ import com.rentACar.rentACar.services.dtos.responses.Car.GetCarResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -37,9 +39,9 @@ public class CarsController {
         return carService.getById(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = {"multipart/form-data"})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Result add(@ModelAttribute @Valid AddCarRequest request){
+    public Result add(@ModelAttribute AddCarRequest request) {
         return carService.add(request);
     }
 
